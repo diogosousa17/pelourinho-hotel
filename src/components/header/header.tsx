@@ -21,7 +21,7 @@ export function Header() {
                     <>
                         <Flex w="100%" align="center">
                             <Image
-                                boxSize='124px'
+                                boxSize='70px'
                                 objectFit='cover'
                                 src='https://bit.ly/dan-abramov'
                                 alt='Dan Abramov'
@@ -30,11 +30,11 @@ export function Header() {
                             <Button
                                 bgColor='#C29A76'
                                 borderRadius="0"
-                                mr="14"
                                 _focus={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
                                 onClick={onOpen}
+                                boxSize="70px"
                             >
-                                <FiMenu color='#fff' />
+                                <FiMenu color='#fff' size={30} />
                             </Button>
                         </Flex>
                         <Drawer
