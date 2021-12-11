@@ -1,9 +1,8 @@
 import { Box, Center, Text, Divider } from '@chakra-ui/react'
-import { NextPage } from 'next'
 import React from 'react'
 import Link from 'next/link'
 
-const HomePage: NextPage = () => {
+export function HomePage() {
     return (
         <>
             <Box
@@ -51,5 +50,3 @@ const HomePage: NextPage = () => {
         </>
     )
 }
-
-export default HomePage

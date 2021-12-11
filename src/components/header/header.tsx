@@ -54,7 +54,7 @@ export function Header() {
                                             </Text>
                                         </Link>
                                         <Spacer />
-                                        <Link href="/homepage" passHref>
+                                        <Link href="/bedrooms" passHref>
                                             <Text as="a" cursor="pointer">
                                                 Bedrooms
                                             </Text>
@@ -66,7 +66,7 @@ export function Header() {
                                             </Text>
                                         </Link>
                                         <Spacer />
-                                        <Link href="/homepage" passHref>
+                                        <Link href="/" passHref>
                                             <Text as="a" cursor="pointer">
                                                 Contact Us
                                             </Text>
@@ -103,7 +103,7 @@ export function Header() {
                                             </Text>
                                         </Link>
                                         <Spacer />
-                                        <Link href="/homepage" passHref>
+                                        <Link href="/bedrooms" passHref>
                                             <Text as="a" cursor="pointer" pl="5">
                                                 Bedrooms
                                             </Text>
@@ -115,7 +115,7 @@ export function Header() {
                                             </Text>
                                         </Link>
                                         <Spacer />
-                                        <Link href="/homepage" passHref>
+                                        <Link href="/" passHref>
                                             <Text as="a" cursor="pointer" pl="5">
                                                 Contact Us
                                             </Text>
