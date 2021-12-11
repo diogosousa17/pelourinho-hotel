@@ -1,6 +1,8 @@
 import { Box, Image, Flex, Spacer, Text } from '@chakra-ui/react'
 import React from 'react'
 import Link from 'next/link'
+import { LoginButton } from '../loginButton/loginButton'
+import { RegisterButton } from '../registerButton/registerButton'
 
 export function Header() {
     return (
@@ -41,18 +43,13 @@ export function Header() {
                         </Flex>
                     </Box>
                     <Spacer />
-                    <Link href="/homepage" passHref>
-                        <Box as="button" w="100px" h="54px">
-                            <Text decoration="underline" as="a">
-                                Login
-                            </Text>
-                        </Box>
-                    </Link>
-                    <Link href="/" passHref>
+                    <LoginButton />
+                    {/* <Link href="/" passHref>
                         <Box as="button" w="124px" h="54px" border="2px" borderColor="#C29A76">
                             Register
                         </Box>
-                    </Link>
+                    </Link> */}
+                    <RegisterButton />
                 </Flex>
                 <Box w="360px" bg="#C29A76" h="124" as="button" fontSize='lg'>
                     <Text>BOOK NOW</Text>

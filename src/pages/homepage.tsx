@@ -1,4 +1,4 @@
-import { Box, Center, Text, Divider, Button } from '@chakra-ui/react'
+import { Box, Center, Text, Divider } from '@chakra-ui/react'
 import { NextPage } from 'next'
 import React from 'react'
 import Link from 'next/link'
