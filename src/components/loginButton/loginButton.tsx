@@ -36,9 +36,9 @@ export function LoginButton() {
                 <DrawerOverlay />
                 <DrawerContent bgColor="#C29A76">
                     <DrawerBody>
-                        <Center>
+                        <Center h="100%">
                             <Stack spacing={'4'}>
-                                <Text fontSize='5xl' fontWeight='bold' mt="200px" textAlign="center">Login</Text>
+                                <Text fontSize='5xl' fontWeight='bold' textAlign="center">Login</Text>
                                 <Input w="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" borderWidth='0px' placeholder="Email" />
                                 <Input w="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" borderWidth='0px' placeholder="Password" />
                                 <Center>
@@ -60,7 +60,7 @@ export function LoginButton() {
                                 <Center>
                                     <Link href="/" passHref>
                                         <Box as="a">
-                                            <Text>Esqueceu-se da Palavra-Passe? Recuperar!</Text>
+                                            <Text fontSize="md">Esqueceu-se da Palavra-Passe? Recuperar!</Text>
                                         </Box>
                                     </Link>
                                 </Center>
@@ -77,13 +77,13 @@ export function LoginButton() {
                         </Center>
                     </DrawerBody>
                     <DrawerFooter>
-                            <Box
-                                as="a"
-                                onClick={() => handleClose()}
-                                cursor="pointer"
-                            >
-                                <Text>Para sair pressione Esc ou clique aqui para retornar.</Text>
-                            </Box>
+                        <Box
+                            as="a"
+                            onClick={() => handleClose()}
+                            cursor="pointer"
+                        >
+                            <Text>Para sair pressione Esc ou clique aqui para retornar.</Text>
+                        </Box>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>

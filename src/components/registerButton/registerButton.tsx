@@ -38,9 +38,9 @@ export function RegisterButton() {
                 <DrawerOverlay />
                 <DrawerContent bgColor="#C29A76">
                     <DrawerBody>
-                        <Center>
+                        <Center h="100%">
                             <Stack spacing={'4'}>
-                                <Text fontSize='5xl' fontWeight='bold' mt="200px" textAlign="center">Registo</Text>
+                                <Text fontSize='5xl' fontWeight='bold' textAlign="center">Registo</Text>
                                 <Input w="550px" h="50px" bgColor="#FFFF" type="text" borderRadius="0" placeholder="Primeiro Nome" border="0px" />
                                 <Input w="550px" h="50px" bgColor="#FFFF" type="text" borderRadius="0" placeholder="Último Nome" border="0px" />
                                 <Input w="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" placeholder="Email" border="0px" />
