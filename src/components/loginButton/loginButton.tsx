@@ -10,7 +10,9 @@ import {
     Input,
     VStack,
     Box,
-    DrawerFooter
+    DrawerHeader,
+    IconButton,
+    Flex
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import React from 'react'
@@ -48,12 +50,25 @@ export function LoginButton() {
             >
                 <DrawerOverlay />
                 <DrawerContent bgColor="#C29A76">
+                    <Flex w="100%" justify="flex-end">
+                        <DrawerHeader>
+                            <IconButton
+                                as="a"
+                                onClick={() => handleClose()}
+                                cursor="pointer"
+                                aria-label='Close Drawer'
+                                bgColor="#C29A76"
+                            >
+                                <Text>X</Text>
+                            </IconButton>
+                        </DrawerHeader>
+                    </Flex>
                     <DrawerBody>
                         <Center h="100%">
                             <VStack spacing={'4'} w="100%">
                                 <Text fontSize='5xl' fontWeight='bold' textAlign="center">Login</Text>
-                                    <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" borderWidth='0px' placeholder="Email" />
-                                    <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" borderWidth='0px' placeholder="Password" />
+                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" borderWidth='0px' placeholder="Email" />
+                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" borderWidth='0px' placeholder="Password" />
                                 <Center>
                                     <Button
                                         w="225px"
@@ -89,15 +104,6 @@ export function LoginButton() {
                             </VStack>
                         </Center>
                     </DrawerBody>
-                    <DrawerFooter>
-                        <Box
-                            as="a"
-                            onClick={() => handleClose()}
-                            cursor="pointer"
-                        >
-                            <Text>Para sair pressione Esc ou clique aqui para retornar.</Text>
-                        </Box>
-                    </DrawerFooter>
                 </DrawerContent>
             </Drawer>
         </>

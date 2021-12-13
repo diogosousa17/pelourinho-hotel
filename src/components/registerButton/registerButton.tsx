@@ -10,7 +10,10 @@ import {
     Input,
     VStack,
     Box,
-    DrawerFooter
+    DrawerFooter,
+    Flex,
+    DrawerHeader,
+    IconButton
 }
     from '@chakra-ui/react'
 import React from 'react'
@@ -50,6 +53,19 @@ export function RegisterButton() {
             >
                 <DrawerOverlay />
                 <DrawerContent bgColor="#C29A76">
+                    <Flex w="100%" justify="flex-end">
+                        <DrawerHeader>
+                            <IconButton
+                                as="a"
+                                onClick={() => handleClose()}
+                                cursor="pointer"
+                                aria-label='Close Drawer'
+                                bgColor="#C29A76"
+                            >
+                                <Text>X</Text>
+                            </IconButton>
+                        </DrawerHeader>
+                    </Flex>
                     <DrawerBody>
                         <Center h="100%">
                             <VStack spacing={'4'} w="100%">
@@ -78,15 +94,6 @@ export function RegisterButton() {
                             </VStack>
                         </Center>
                     </DrawerBody>
-                    <DrawerFooter>
-                        <Box
-                            as="a"
-                            onClick={() => handleClose()}
-                            cursor="pointer"
-                        >
-                            <Text>Para sair pressione Esc ou clique aqui para retornar.</Text>
-                        </Box>
-                    </DrawerFooter>
                 </DrawerContent>
             </Drawer>
         </>
