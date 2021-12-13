@@ -8,7 +8,7 @@ import {
     Center,
     Text,
     Input,
-    Stack,
+    VStack,
     Box,
     DrawerFooter
 } from '@chakra-ui/react'
@@ -50,10 +50,10 @@ export function LoginButton() {
                 <DrawerContent bgColor="#C29A76">
                     <DrawerBody>
                         <Center h="100%">
-                            <Stack spacing={'4'}>
+                            <VStack spacing={'4'} w="100%">
                                 <Text fontSize='5xl' fontWeight='bold' textAlign="center">Login</Text>
-                                <Input w="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" borderWidth='0px' placeholder="Email" />
-                                <Input w="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" borderWidth='0px' placeholder="Password" />
+                                    <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" borderWidth='0px' placeholder="Email" />
+                                    <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" borderWidth='0px' placeholder="Password" />
                                 <Center>
                                     <Button
                                         w="225px"
@@ -86,7 +86,7 @@ export function LoginButton() {
                                 </Center>
                                 <Center>
                                 </Center>
-                            </Stack>
+                            </VStack>
                         </Center>
                     </DrawerBody>
                     <DrawerFooter>
