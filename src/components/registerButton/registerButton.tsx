@@ -10,7 +10,6 @@ import {
     Input,
     VStack,
     Box,
-    DrawerFooter,
     Flex,
     DrawerHeader,
     IconButton

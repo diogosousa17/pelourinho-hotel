@@ -1,4 +1,21 @@
-import { Box, Image, Flex, Spacer, Text, useBreakpointValue, Container, useDisclosure, Button, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, Center, DrawerHeader, DrawerBody, Stack, DrawerFooter } from '@chakra-ui/react'
+import {
+    Box,
+    Image,
+    Flex,
+    Spacer,
+    Text,
+    useBreakpointValue,
+    useDisclosure,
+    Button, Drawer,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    Center,
+    DrawerHeader,
+    DrawerBody,
+    Stack,
+    DrawerFooter
+} from '@chakra-ui/react'
 import React from 'react'
 import Link from 'next/link'
 import { LoginButton } from '../loginButton/loginButton'
@@ -20,12 +37,14 @@ export function Header() {
                 !wide ? (
                     <>
                         <Flex w="100%" align="center" bgColor="#C29A76">
-                            <Image
-                                boxSize='70px'
-                                objectFit='cover'
-                                src='/logo.png'
-                                alt='Dan Abramov'
-                            />
+                            <Link href="/" passHref>
+                                <Image
+                                    boxSize='70px'
+                                    objectFit='cover'
+                                    src='/logo.png'
+                                    alt='Logo'
+                                />
+                            </Link>
                             <Spacer />
                             <Button
                                 bgColor='#C29A76'
@@ -88,12 +107,15 @@ export function Header() {
                 ) : (
                     <>
                         <Flex w="100%">
-                            <Image
-                                boxSize='124px'
-                                objectFit='cover'
-                                src='/logo.png'
-                                alt='Dan Abramov'
-                            />
+                            <Link href="/" passHref>
+                                <Image
+                                    boxSize='124px'
+                                    objectFit='cover'
+                                    src='/logo.png'
+                                    alt='Logo'
+                                    cursor='pointer'
+                                />
+                            </Link>
                             <Flex w="100%" justify="space-between" align="center" px="5">
                                 <Box>
                                     <Flex>
