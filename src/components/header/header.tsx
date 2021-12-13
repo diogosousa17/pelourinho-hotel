@@ -19,11 +19,11 @@ export function Header() {
             {
                 !wide ? (
                     <>
-                        <Flex w="100%" align="center">
+                        <Flex w="100%" align="center" bgColor="#C29A76">
                             <Image
                                 boxSize='70px'
                                 objectFit='cover'
-                                src='https://bit.ly/dan-abramov'
+                                src='/logo.png'
                                 alt='Dan Abramov'
                             />
                             <Spacer />
@@ -91,7 +91,7 @@ export function Header() {
                             <Image
                                 boxSize='124px'
                                 objectFit='cover'
-                                src='https://bit.ly/dan-abramov'
+                                src='/logo.png'
                                 alt='Dan Abramov'
                             />
                             <Flex w="100%" justify="space-between" align="center" px="5">
