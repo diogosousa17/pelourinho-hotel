@@ -15,9 +15,18 @@ import {
     Flex
 } from '@chakra-ui/react'
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export function LoginButton() {
+
+    const { register, handleSubmit } = useForm()
+    const { signIn } = useContext(AuthContext)
+
+    async function handleSignIn(data: any) {
+        await signIn(data)
+    }
 
     const [size, setSize] = React.useState('full')
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -67,24 +76,47 @@ export function LoginButton() {
                         <Center h="100%">
                             <VStack spacing={'4'} w="100%">
                                 <Text fontSize='5xl' fontWeight='bold' textAlign="center">Login</Text>
-                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" borderWidth='0px' placeholder="Email" />
-                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" borderWidth='0px' placeholder="Password" />
-                                <Center>
-                                    <Button
-                                        w="225px"
-                                        h="16"
+                                <form onSubmit={handleSubmit(handleSignIn)}>
+                                    <Input
+                                        w="100%"
+                                        maxW="550px"
+                                        h="50px"
+                                        bgColor="#FFFF"
+                                        type="text"
                                         borderRadius="0"
-                                        border="4px"
-                                        borderColor="#FFFF"
-                                        variant='outline'
-                                        color="#FFFF"
-                                        fontSize="2xl"
-                                        _hover={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
-                                        _focus={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
-                                    >
-                                        Entrar
-                                    </Button>
-                                </Center>
+                                        borderWidth='0px'
+                                        placeholder="Username"
+                                        {...register("username")}
+                                    />
+                                    <Input
+                                        w="100%"
+                                        maxW="550px"
+                                        h="50px"
+                                        bgColor="#FFFF"
+                                        type="password"
+                                        borderRadius="0"
+                                        borderWidth='0px'
+                                        placeholder="Password"
+                                        {...register("password")}
+                                    />
+                                    <Center>
+                                        <Button
+                                            w="225px"
+                                            h="16"
+                                            borderRadius="0"
+                                            border="4px"
+                                            borderColor="#FFFF"
+                                            variant='outline'
+                                            color="#FFFF"
+                                            fontSize="2xl"
+                                            _hover={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
+                                            _focus={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
+                                            type="submit"
+                                        >
+                                            Entrar
+                                        </Button>
+                                    </Center>
+                                </form>
                                 <Center>
                                     <Link href="/" passHref>
                                         <Box as="a">

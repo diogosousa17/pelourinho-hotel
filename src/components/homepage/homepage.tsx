@@ -21,9 +21,15 @@ export function HomePage() {
                         borderWidth="1px"
                         borderColor="#fff"
                     />
-                    <Heading fontSize={["40px", "72px"]} color="#fff" textAlign="center" fontWeight="regular" textShadow="3px 0px 7px rgba(0,0,0,0.3), 
-	  -3px 0px 7px rgba(0,0,0,0.3), 
-	  0px 4px 7px rgba(0,0,0,0.3)">PELOURINHO HOTEL & SPA</Heading>
+                    <Heading
+                        fontSize={["40px", "72px"]}
+                        color="#fff" textAlign="center"
+                        fontWeight="regular"
+                        textShadow="3px 0px 7px rgba(0,0,0,0.3), 
+	                                -3px 0px 7px rgba(0,0,0,0.3), 
+	                                0px 4px 7px rgba(0,0,0,0.3)"
+                    >
+                        PELOURINHO HOTEL & SPA</Heading>
                     <Link href="/" passHref>
                         <Box
                             as="button"
