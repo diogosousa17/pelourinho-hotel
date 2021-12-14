@@ -48,7 +48,7 @@ export function Cards() {
                                 return (
                                     <>
                                         <Box maxW='sm' borderRadius='8px 8px 0 0' overflow='hidden' boxShadow="rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;" mx="auto">
-                                            <Image src="/logo.png" alt="image" maxH="100%" />
+                                            <Image src="/logo.png" alt="image" maxH="300px" h="100%" w="100%" objectFit="cover" />
                                             <Box p='2' bgColor="#F5F5F5" h="100%">
                                                 <Box display='flex' alignItems='baseline'>
                                                     <Box
