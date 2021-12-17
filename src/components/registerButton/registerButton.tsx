@@ -68,12 +68,63 @@ export function RegisterButton() {
                     <DrawerBody>
                         <Center h="100%">
                             <VStack spacing={'4'} w="100%">
-                                <Text fontSize='5xl' fontWeight='bold' textAlign="center">Registo</Text>
-                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="text" borderRadius="0" placeholder="Primeiro Nome" border="0px" />
-                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="text" borderRadius="0" placeholder="Último Nome" border="0px" />
-                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="email" borderRadius="0" placeholder="Email" border="0px" />
-                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" placeholder="Password" border="0px" />
-                                <Input w="100%" maxW="550px" h="50px" bgColor="#FFFF" type="password" borderRadius="0" placeholder="Repetir a Password" border="0px" />
+                                <Text
+                                    fontSize='5xl'
+                                    fontWeight='bold'
+                                    textAlign="center"
+                                >
+                                    Registo
+                                </Text>
+                                <Input
+                                    w="100%"
+                                    maxW="550px"
+                                    h="50px"
+                                    bgColor="#FFFF"
+                                    type="text"
+                                    borderRadius="0"
+                                    placeholder="Primeiro Nome"
+                                    border="0px"
+                                />
+                                <Input
+                                    w="100%"
+                                    maxW="550px"
+                                    h="50px"
+                                    bgColor="#FFFF"
+                                    type="text"
+                                    borderRadius="0"
+                                    placeholder="Último Nome"
+                                    border="0px"
+                                />
+                                <Input
+                                    w="100%"
+                                    maxW="550px"
+                                    h="50px"
+                                    bgColor="#FFFF"
+                                    type="email"
+                                    borderRadius="0"
+                                    placeholder="Email"
+                                    border="0px"
+                                />
+                                <Input
+                                    w="100%"
+                                    maxW="550px"
+                                    h="50px"
+                                    bgColor="#FFFF"
+                                    type="password"
+                                    borderRadius="0"
+                                    placeholder="Password"
+                                    border="0px"
+                                />
+                                <Input
+                                    w="100%"
+                                    maxW="550px"
+                                    h="50px"
+                                    bgColor="#FFFF"
+                                    type="password"
+                                    borderRadius="0"
+                                    placeholder="Repetir a Password"
+                                    border="0px"
+                                />
                                 <Center>
                                     <Button
                                         w="225px"

@@ -12,17 +12,16 @@ import {
     Box,
     DrawerHeader,
     IconButton,
-    Flex
+    Flex,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../contexts/AuthContext'
-
 export function LoginButton() {
 
-    const { register, handleSubmit } = useForm()
-    const { signIn } = useContext(AuthContext)
+    const { signIn, isAuthnticated } = useContext(AuthContext)
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
 
     async function handleSignIn(data: any) {
         await signIn(data)
@@ -74,10 +73,11 @@ export function LoginButton() {
                     </Flex>
                     <DrawerBody>
                         <Center h="100%">
-                            <VStack spacing={'4'} w="100%">
+                            <VStack>
                                 <Text fontSize='5xl' fontWeight='bold' textAlign="center">Login</Text>
                                 <form onSubmit={handleSubmit(handleSignIn)}>
                                     <Input
+                                        id="username"
                                         w="100%"
                                         maxW="550px"
                                         h="50px"
@@ -87,17 +87,20 @@ export function LoginButton() {
                                         borderWidth='0px'
                                         placeholder="Username"
                                         {...register("username")}
+                                        mb="10px"
                                     />
                                     <Input
+                                        id="password"
                                         w="100%"
                                         maxW="550px"
                                         h="50px"
                                         bgColor="#FFFF"
-                                        type="password"
                                         borderRadius="0"
                                         borderWidth='0px'
                                         placeholder="Password"
+                                        type="password"
                                         {...register("password")}
+                                        mb="10px"
                                     />
                                     <Center>
                                         <Button
@@ -112,6 +115,7 @@ export function LoginButton() {
                                             _hover={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
                                             _focus={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
                                             type="submit"
+                                            isLoading={isSubmitting}
                                         >
                                             Entrar
                                         </Button>
@@ -138,6 +142,7 @@ export function LoginButton() {
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
+
         </>
     )
 }

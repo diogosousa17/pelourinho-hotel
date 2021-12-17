@@ -37,7 +37,6 @@ export function AuthProvider({ children }: any) {
             setCookie(undefined, 'hotel.token', response.data.token, {
                 maxAge: 60 * 60 * 1, // 1h
             })
-
             setUser(user)
             Router.push('/')
         } catch (err) {

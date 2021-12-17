@@ -10,7 +10,6 @@ import Link from 'next/link'
 import React, { useEffect, useState } from "react"
 import { api } from '../../services/api'
 
-
 export function Cards() {
 
     const [bedrooms, setBedrooms] = useState([])
@@ -20,11 +19,12 @@ export function Cards() {
             .get("/bedrooms/bedroom")
             .then((response) => setBedrooms(response.data))
             .catch((err) => {
-                console.error("ops! ocorreu um erro " + err)
+                console.error("Erro: " + err)
             })
     }, [])
 
     type Bedroom = {
+        _id: String,
         bedroomName: String,
         description: String,
         capacity: Number,
@@ -74,7 +74,7 @@ export function Cards() {
                                                     <Box as='span' color='gray.600' fontSize='sm'>
                                                         <Text pr="10px" color='gray.500' fontSize='sm' noOfLines={3} maxW="200px" w="100%">{bedroom.description}</Text>
                                                     </Box>
-                                                    <Link href="/bedroom" passHref>
+                                                    <Link href={"/bedroom/" + bedroom._id} passHref>
                                                         <Box as="button" bgColor="#C29A76" fontWeight="light" _hover={{ bgColor: "rgba(0, 0, 0, 0.2)" }} w="100px" h="30px" borderRadius="4px" alignSelf='flex-end'>Ver mais</Box>
                                                     </Link>
                                                 </Flex>
