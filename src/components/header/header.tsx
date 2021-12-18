@@ -14,15 +14,26 @@ import {
     DrawerHeader,
     DrawerBody,
     Stack,
-    DrawerFooter
+    DrawerFooter,
+    Avatar,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    Portal,
+    VStack,
+    AvatarBadge
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import Link from 'next/link'
 import { LoginButton } from '../loginButton/loginButton'
 import { RegisterButton } from '../registerButton/registerButton'
-import { FiMenu } from 'react-icons/fi'
+import { FiMenu, FiChevronDown, FiSettings, FiLogOut } from 'react-icons/fi'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export function Header() {
+
+    const { user, isAuthnticated, signOut } = useContext(AuthContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -91,15 +102,36 @@ export function Header() {
                                             </Text>
                                         </Link>
                                     </Stack>
-                                    <Center>
-                                        <LoginButton />
-                                        <RegisterButton />
-                                    </Center>
                                 </DrawerBody>
                                 <DrawerFooter>
-                                    <Box w="360px" bg="#C29A76" h="124" as="button" fontSize='lg' color="#000">
-                                        <Text>BOOK NOW</Text>
-                                    </Box>
+                                    <VStack w="100%">
+                                        {
+                                            isAuthnticated ? (
+                                                <>
+                                                    <Flex align="center" justify="space-between" w="100%">
+                                                        <Flex align="center">
+                                                            <Avatar src={user.avatar} />
+                                                            <Text>{user.username}</Text>
+                                                        </Flex>
+                                                        <Flex>
+                                                            <Text><FiSettings size={25} /></Text>
+                                                            <Box as="button" onClick={signOut} ml="10px"><FiLogOut size={25} /></Box>
+                                                        </Flex>
+                                                    </Flex>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Center>
+                                                        <LoginButton />
+                                                        <RegisterButton />
+                                                    </Center>
+                                                </>
+                                            )
+                                        }
+                                        <Box w="100%" maxW="360px" bg="#C29A76" h="124" as="button" fontSize='lg' color="#000">
+                                            <Text>BOOK NOW</Text>
+                                        </Box>
+                                    </VStack>
                                 </DrawerFooter>
                             </DrawerContent>
                         </Drawer>
@@ -145,8 +177,34 @@ export function Header() {
                                     </Flex>
                                 </Box>
                                 <Spacer />
-                                <LoginButton />
-                                <RegisterButton />
+                                {
+                                    isAuthnticated ? (
+                                        <>
+                                            <Menu>
+                                                <MenuButton borderRadius="lg">
+                                                    <Flex align="center">
+                                                        <Text>{user.username}</Text>
+                                                        <Avatar m="6px" name={user.name} />
+                                                            {/* <AvatarBadge boxSize='1.25em' bg='green.500' /> */}
+                                                        {/* </Avatar> */}
+                                                        <FiChevronDown />
+                                                    </Flex>
+                                                </MenuButton>
+                                                <Portal>
+                                                    <MenuList>
+                                                        <MenuItem>Definições de Conta</MenuItem>
+                                                        <MenuItem as="button" onClick={signOut}>Sair</MenuItem>
+                                                    </MenuList>
+                                                </Portal>
+                                            </Menu>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <LoginButton />
+                                            <RegisterButton />
+                                        </>
+                                    )
+                                }
                             </Flex>
                             <Box w="360px" bg="#C29A76" h="124" as="button" fontSize='lg'>
                                 <Text>BOOK NOW</Text>
