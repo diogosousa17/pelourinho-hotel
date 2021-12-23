@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import { api } from '../services/api'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
+import { useToast } from "@chakra-ui/react"
 
 type User = {
     username: string,
@@ -24,6 +25,8 @@ type AuthContextType = {
 export const AuthContext = createContext({} as AuthContextType)
 
 export function AuthProvider({ children }: any) {
+
+    const toast = useToast()
     const [user, setUser] = useState<User | null>(null)
 
     const isAuthnticated = !!user

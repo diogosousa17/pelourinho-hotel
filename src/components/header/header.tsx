@@ -22,7 +22,6 @@ import {
     MenuItem,
     Portal,
     VStack,
-    AvatarBadge
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import Link from 'next/link'

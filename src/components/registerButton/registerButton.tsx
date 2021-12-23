@@ -12,15 +12,23 @@ import {
     Box,
     Flex,
     DrawerHeader,
-    IconButton
+    IconButton,
+    toast,
+    useToast
 }
     from '@chakra-ui/react'
 import React from 'react'
+import { useForm } from 'react-hook-form'
+import { api } from '../../services/api'
+import { LoginButton } from '../loginButton/loginButton'
 
 export function RegisterButton() {
 
+    const toast = useToast()
+
     const [size, setSize] = React.useState('full')
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
 
     const handleClick = (newSize: any) => {
         setSize(newSize)
@@ -29,6 +37,32 @@ export function RegisterButton() {
 
     const handleClose = () => {
         onClose()
+    }
+
+    const onSubmit = async (data: any) => {
+        const newUser = {
+            username: data.username,
+            name: data.name,
+            email: data.email,
+            password: data.password,
+        }
+        await api.post('/auth/register', newUser)
+            .then(res => {
+                toast({
+                    position: 'top-start',
+                    isClosable: true,
+                    title: 'Conta criada com sucesso!',
+                    status: 'success',
+                })
+            })
+            .catch(err => {
+                toast({
+                    position: 'top-start',
+                    isClosable: true,
+                    title: 'Erro ao criar conta. Tente novamente mais tarde.',
+                    status: 'error',
+                })
+            })
     }
 
     return (
@@ -65,85 +99,99 @@ export function RegisterButton() {
                             </IconButton>
                         </DrawerHeader>
                     </Flex>
-                    <DrawerBody>
-                        <Center h="100%">
-                            <VStack spacing={'4'} w="100%">
-                                <Text
-                                    fontSize='5xl'
-                                    fontWeight='bold'
-                                    textAlign="center"
-                                >
-                                    Registo
-                                </Text>
-                                <Input
-                                    w="100%"
-                                    maxW="550px"
-                                    h="50px"
-                                    bgColor="#FFFF"
-                                    type="text"
-                                    borderRadius="0"
-                                    placeholder="Primeiro Nome"
-                                    border="0px"
-                                />
-                                <Input
-                                    w="100%"
-                                    maxW="550px"
-                                    h="50px"
-                                    bgColor="#FFFF"
-                                    type="text"
-                                    borderRadius="0"
-                                    placeholder="Último Nome"
-                                    border="0px"
-                                />
-                                <Input
-                                    w="100%"
-                                    maxW="550px"
-                                    h="50px"
-                                    bgColor="#FFFF"
-                                    type="email"
-                                    borderRadius="0"
-                                    placeholder="Email"
-                                    border="0px"
-                                />
-                                <Input
-                                    w="100%"
-                                    maxW="550px"
-                                    h="50px"
-                                    bgColor="#FFFF"
-                                    type="password"
-                                    borderRadius="0"
-                                    placeholder="Password"
-                                    border="0px"
-                                />
-                                <Input
-                                    w="100%"
-                                    maxW="550px"
-                                    h="50px"
-                                    bgColor="#FFFF"
-                                    type="password"
-                                    borderRadius="0"
-                                    placeholder="Repetir a Password"
-                                    border="0px"
-                                />
-                                <Center>
-                                    <Button
-                                        w="225px"
-                                        h="16"
-                                        borderRadius="0"
-                                        border="4px"
-                                        borderColor="#FFFF"
-                                        variant='outline'
-                                        color="#FFFF"
-                                        fontSize="2xl"
-                                        _hover={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
-                                        _focus={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
+                    <Center>
+                        <DrawerBody w="100%" display="flex" align="center">
+                            <Center h="100%" w="100%">
+                                <VStack>
+                                    <Text
+                                        fontSize='5xl'
+                                        fontWeight='bold'
+                                        textAlign="center"
                                     >
-                                        Criar conta
-                                    </Button>
-                                </Center>
-                            </VStack>
-                        </Center>
-                    </DrawerBody>
+                                        Registo
+                                    </Text>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <Input
+                                            w="100%"
+                                            maxW="550px"
+                                            h="50px"
+                                            bgColor="#FFFF"
+                                            type="text"
+                                            borderRadius="0"
+                                            placeholder="Username"
+                                            border="0px"
+                                            {...register("username")}
+                                            mb="10px"
+                                        />
+                                        <Input
+                                            w="100%"
+                                            maxW="550px"
+                                            h="50px"
+                                            bgColor="#FFFF"
+                                            type="text"
+                                            borderRadius="0"
+                                            placeholder="Primeiro e Último Nome"
+                                            border="0px"
+                                            {...register("name")}
+                                            mb="10px"
+                                        />
+                                        <Input
+                                            w="100%"
+                                            maxW="550px"
+                                            h="50px"
+                                            bgColor="#FFFF"
+                                            type="email"
+                                            borderRadius="0"
+                                            placeholder="Email"
+                                            border="0px"
+                                            {...register("email")}
+                                            mb="10px"
+                                        />
+                                        <Input
+                                            w="100%"
+                                            maxW="550px"
+                                            h="50px"
+                                            bgColor="#FFFF"
+                                            type="password"
+                                            borderRadius="0"
+                                            placeholder="Palavra-Passe"
+                                            border="0px"
+                                            {...register("password")}
+                                            mb="10px"
+                                        />
+                                        {/* <Input
+                                        w="100%"
+                                        maxW="550px"
+                                        h="50px"
+                                        bgColor="#FFFF"
+                                        type="password"
+                                        borderRadius="0"
+                                        placeholder="Repetir a Password"
+                                        border="0px"
+                                    /> */}
+                                        <Center>
+                                            <Button
+                                                w="225px"
+                                                h="16"
+                                                borderRadius="0"
+                                                border="4px"
+                                                borderColor="#FFFF"
+                                                variant='outline'
+                                                color="#FFFF"
+                                                fontSize="2xl"
+                                                _hover={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
+                                                _focus={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
+                                                type="submit"
+                                                isLoading={isSubmitting}
+                                            >
+                                                Criar conta
+                                            </Button>
+                                        </Center>
+                                    </form>
+                                </VStack>
+                            </Center>
+                        </DrawerBody>
+                    </Center>
                 </DrawerContent>
             </Drawer>
         </>

@@ -13,6 +13,7 @@ import {
     DrawerHeader,
     IconButton,
     Flex,
+    useToast,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { useContext } from 'react'
@@ -20,6 +21,7 @@ import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../contexts/AuthContext'
 export function LoginButton() {
 
+    const toast = useToast()
     const { signIn, isAuthnticated } = useContext(AuthContext)
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
 
@@ -124,14 +126,7 @@ export function LoginButton() {
                                 <Center>
                                     <Link href="/" passHref>
                                         <Box as="a">
-                                            <Text fontSize="md">Esqueceu-se da Palavra-Passe? Recuperar!</Text>
-                                        </Box>
-                                    </Link>
-                                </Center>
-                                <Center>
-                                    <Link href="/" passHref>
-                                        <Box as="a">
-                                            <Text>Ainda não tem conta? Criar uma nova!</Text>
+                                            <Text textAlign="center">Esqueceu-se da Palavra-Passe? Recuperar!</Text>
                                         </Box>
                                     </Link>
                                 </Center>
@@ -142,7 +137,6 @@ export function LoginButton() {
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
-
         </>
     )
 }
