@@ -1,13 +1,13 @@
 import { Center, Flex } from '@chakra-ui/react'
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { BedroomFilter } from '../components/bedroomFilter/bedroomFilter'
 import { Cards } from '../components/cards/cards'
 
-const Bedrooms: NextPage = () => {
+const Bedrooms: NextPage = ({ query }: any) => {
     return (
         <>
-            <BedroomFilter />
+            <BedroomFilter filter={query} />
             <Center>
                 <Flex
                     w="100%"
@@ -20,9 +20,18 @@ const Bedrooms: NextPage = () => {
                     Quartos:
                 </Flex>
             </Center>
-            <Cards />
+            <Cards filter={query} />
         </>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+
+    return {
+        props: {
+            query
+        },
+    }
 }
 
 export default Bedrooms

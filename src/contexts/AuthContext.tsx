@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react"
 import { api } from '../services/api'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import { useToast } from "@chakra-ui/react"
+import { useRouter } from "next/router"
 
 type User = {
     username: string,
@@ -28,6 +29,7 @@ export function AuthProvider({ children }: any) {
 
     const toast = useToast()
     const [user, setUser] = useState<User | null>(null)
+    const router = useRouter()
 
     const isAuthnticated = !!user
 
@@ -73,7 +75,7 @@ export function AuthProvider({ children }: any) {
 
     function signOut() {
         destroyCookie(undefined, 'hotel.token')
-        window.location.reload();
+        router.reload()
     }
 
     return (
