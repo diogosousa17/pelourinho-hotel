@@ -3,8 +3,12 @@ import type { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { BedroomFilter } from '../components/bedroomFilter/bedroomFilter'
 import { Cards } from '../components/cards/cards'
+import { PaginationComp } from '../components/paginationComp/paginationComp'
 
 const Bedrooms: NextPage = ({ query }: any) => {
+
+
+
     return (
         <>
             <BedroomFilter filter={query} />
@@ -21,12 +25,12 @@ const Bedrooms: NextPage = ({ query }: any) => {
                 </Flex>
             </Center>
             <Cards filter={query} />
+            <PaginationComp page={query} />
         </>
     )
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-
     return {
         props: {
             query

@@ -1,4 +1,4 @@
-import { Button, Center, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Select, Text } from '@chakra-ui/react'
+import { Button, Center, Flex, HStack, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { FiChevronDown } from 'react-icons/fi'
 
