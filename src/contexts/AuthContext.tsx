@@ -5,6 +5,7 @@ import { useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
 type User = {
+    id: string,
     username: string,
     name: string,
     email: string,
@@ -42,8 +43,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': token
                 }
             }).then(response => {
-                const { username, email, name, avatar } = response.data.decoded
-                setUser({ username, email, name, avatar })
+                const { id, username, email, name, avatar } = response.data.decoded
+                setUser({ id, username, email, name, avatar })
             })
         }
 
@@ -65,8 +66,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': response.data.token
                 }
             }).then(response => {
-                const { username, email, name, avatar } = response.data.decoded
-                setUser({ username, email, name, avatar })
+                const { id, username, email, name, avatar } = response.data.decoded
+                setUser({ id, username, email, name, avatar })
             })
         } catch (err) {
             console.log(err)

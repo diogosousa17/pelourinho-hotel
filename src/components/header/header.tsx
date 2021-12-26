@@ -30,11 +30,15 @@ import { RegisterButton } from '../registerButton/registerButton'
 import { FiMenu, FiChevronDown, FiSettings, FiLogOut } from 'react-icons/fi'
 import { AuthContext } from '../../contexts/AuthContext'
 
+import { useRouter } from 'next/router'
+
 export function Header() {
 
     const { user, isAuthnticated, signOut } = useContext(AuthContext)
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const router = useRouter()
 
     const wide = useBreakpointValue({
         base: false,
@@ -109,7 +113,7 @@ export function Header() {
                                                 <>
                                                     <Flex align="center" justify="space-between" w="100%">
                                                         <Flex align="center">
-                                                            <Avatar src={user.avatar} />
+                                                            <Avatar name={user.username} />
                                                             <Text>{user.username}</Text>
                                                         </Flex>
                                                         <Flex>
@@ -184,14 +188,12 @@ export function Header() {
                                                     <Flex align="center">
                                                         <Text>{user.username}</Text>
                                                         <Avatar m="6px" name={user.name} />
-                                                            {/* <AvatarBadge boxSize='1.25em' bg='green.500' /> */}
-                                                        {/* </Avatar> */}
                                                         <FiChevronDown />
                                                     </Flex>
                                                 </MenuButton>
                                                 <Portal>
                                                     <MenuList>
-                                                        <MenuItem>Definições de Conta</MenuItem>
+                                                        <MenuItem><Box as="button" onClick={() => router.push(`/accountInfo/${user.id}`)}>Definições de Conta</Box></MenuItem>
                                                         <MenuItem as="button" onClick={signOut}>Sair</MenuItem>
                                                     </MenuList>
                                                 </Portal>

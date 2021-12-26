@@ -67,7 +67,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                             mt="50px"
                                             borderRadius="0"
                                         >
-                                            BOOK NOW
+                                            RESERVAR
                                         </Button>
                                     </Flex>
                                 </SimpleGrid>

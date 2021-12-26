@@ -20,7 +20,6 @@ import {
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
-import { LoginButton } from '../loginButton/loginButton'
 
 export function RegisterButton() {
 
