@@ -9,8 +9,6 @@ import {
 import Link from 'next/link'
 import React, { useEffect, useState } from "react"
 import { api } from '../../services/api'
-import ReactPaginate from 'react-paginate'
-import { GetServerSideProps } from 'next'
 
 type Bedroom = {
     _id: string,

@@ -9,7 +9,11 @@ type User = {
     username: string,
     name: string,
     email: string,
-    avatar: String
+    avatar: string,
+    nif: number,
+    dateBirthday: Date,
+    phoneNumber: number,
+    address: string,
 }
 
 type SignInData = {
@@ -43,8 +47,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': token
                 }
             }).then(response => {
-                const { id, username, email, name, avatar } = response.data.decoded
-                setUser({ id, username, email, name, avatar })
+                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber } = response.data.decoded
+                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber })
             })
         }
 
@@ -66,8 +70,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': response.data.token
                 }
             }).then(response => {
-                const { id, username, email, name, avatar } = response.data.decoded
-                setUser({ id, username, email, name, avatar })
+                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber } = response.data.decoded
+                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber })
             })
         } catch (err) {
             console.log(err)

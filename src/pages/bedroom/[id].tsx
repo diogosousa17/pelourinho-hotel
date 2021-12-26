@@ -1,20 +1,86 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from 'next'
-import React, { useEffect, useState } from "react"
-import { Image, Box, Center, Flex, Text, Divider, UnorderedList, SimpleGrid, Button, ListItem, useBreakpointValue, Grid } from '@chakra-ui/react'
-import { api } from '../../services/api'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import type { GetServerSideProps, NextPage } from 'next'
+import React, { useContext } from "react"
+import {
+    Image,
+    Box,
+    Center,
+    Flex,
+    Text,
+    Divider,
+    UnorderedList,
+    SimpleGrid,
+    Button,
+    ListItem,
+    useBreakpointValue,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalBody,
+    FormControl,
+    FormLabel,
+    Input,
+    ModalFooter,
+    useDisclosure,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+    useToast
+} from '@chakra-ui/react'
 import { Cards } from '../../components/cards/cards'
+import { AuthContext } from '../../contexts/AuthContext'
+import { useForm } from 'react-hook-form'
+import { api } from '../../services/api'
 
 
 const Bedroom: NextPage = ({ data }: any) => {
 
-    const { bedroomName, price, capacity, bedsNumber, characteristics, description } = data
+    const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType } = data
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { user } = useContext(AuthContext)
+    const toast = useToast()
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
+    let min = 100000000
+    let max = 999999999
+    const x = Math.floor(Math.random() * (max - min + 1)) + min
 
     const wide = useBreakpointValue({
         base: false,
         lg: true
     })
+
+    const onSubmit = async (data: any) => {
+        const createReserve = {
+            reserveNumber: data.reserveNumber,
+            bedroomNumber: data.bedroomNumber,
+            bedroomType: data.bedroomType,
+            nightsNumber: data.nightsNumber,
+            to: data.to,
+            from: data.from,
+            finalPrice: data.finalPrice,
+            guestsNumber: data.guestsNumber
+        }
+        await api.put(`/auth/user/${user.id}`, createReserve)
+            .then(res => {
+                toast({
+                    position: 'top-start',
+                    isClosable: true,
+                    title: 'Dados alterados com sucesso!',
+                    status: 'success',
+                })
+            })
+            .catch(err => {
+                toast({
+                    position: 'top-start',
+                    isClosable: true,
+                    title: 'Erro ao alterar dados. Tente novamente mais tarde.',
+                    status: 'error',
+                })
+            })
+    }
 
     return (
         <>
@@ -48,14 +114,14 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     <Text textAlign="left" w="100%" fontWeight="semibold" h="100%">O quarto conta com as seguintes comodidades:</Text>
                                     <SimpleGrid columns={2} w="100%" h="100%">
                                         <UnorderedList>
-                                        {
-                                            characteristics.slice(0,4).map((characteristic: string) => <ListItem key={characteristic}>{characteristic}</ListItem>)
-                                        }
+                                            {
+                                                characteristics.slice(0, 4).map((characteristic: string) => <ListItem key={characteristic}>{characteristic}</ListItem>)
+                                            }
                                         </UnorderedList>
                                         <UnorderedList dir="rtl">
-                                        {
-                                            characteristics.slice(4,7).map((characteristic: string) => <ListItem key={characteristic}>{characteristic}</ListItem>)
-                                        }
+                                            {
+                                                characteristics.slice(4, 7).map((characteristic: string) => <ListItem key={characteristic}>{characteristic}</ListItem>)
+                                            }
                                         </UnorderedList>
                                     </SimpleGrid>
                                     <Flex align="flex-end">
@@ -66,6 +132,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                             h="100%"
                                             mt="50px"
                                             borderRadius="0"
+                                            onClick={onOpen}
                                         >
                                             RESERVAR
                                         </Button>
@@ -76,7 +143,80 @@ const Bedroom: NextPage = ({ data }: any) => {
                         <Center>
                             <Divider borderWidth="0,5px" w="1000px" mb="5px" borderColor="#000" />
                         </Center>
+                        <Flex w="930px" justify="center">
+                            <Text fontSize="24px" fontWeight="bold"> Sugestões:</Text>
+                        </Flex>
                         <Cards />
+                        <Modal
+                            isOpen={isOpen}
+                            onClose={onClose}
+                            isCentered
+                        >
+                            <ModalOverlay />
+                            <ModalContent>
+                                <ModalHeader>Reservar Quarto</ModalHeader>
+                                <ModalCloseButton />
+                                <ModalBody pb={6}>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <FormControl>
+                                            <FormLabel>Número do Quarto</FormLabel>
+                                            <Input value={bedroomNumber} {...register("bedroomNumber")} />
+                                        </FormControl>
+                                        <FormControl mt={4}>
+                                            <FormLabel>Número de Reserva</FormLabel>
+                                            <Input value={x} {...register("reserveNumber")} />
+                                        </FormControl>
+                                        <FormControl mt={4}>
+                                            <FormLabel>Tipo de Quarto</FormLabel>
+                                            <Input value={bedroomType} {...register("bedroomType")} />
+                                        </FormControl>
+                                        <FormControl mt={4} isRequired>
+                                            <FormLabel>Número de Noites</FormLabel>
+                                            <NumberInput min={1} isRequired>
+                                                <NumberInputField
+                                                    {...register("nightsNumber")}
+                                                />
+                                                <NumberInputStepper>
+                                                    <NumberIncrementStepper />
+                                                    <NumberDecrementStepper />
+                                                </NumberInputStepper>
+                                            </NumberInput>
+                                        </FormControl>
+                                        <FormControl mt={4} isRequired>
+                                            <FormLabel>De</FormLabel>
+                                            <Input type="date" {...register("to")} />
+                                        </FormControl>
+                                        <FormControl mt={4} isRequired>
+                                            <FormLabel>Até</FormLabel>
+                                            <Input type="date" {...register("from")} />
+                                        </FormControl>
+                                        <FormControl mt={4} isRequired>
+                                            <FormLabel>Número de Pessoas</FormLabel>
+                                            <NumberInput min={1} max={capacity} isRequired>
+                                                <NumberInputField
+                                                    {...register("guestsNumber")}
+                                                />
+                                                <NumberInputStepper>
+                                                    <NumberIncrementStepper />
+                                                    <NumberDecrementStepper />
+                                                </NumberInputStepper>
+                                            </NumberInput>
+                                        </FormControl>
+                                        <FormControl mt={4}>
+                                            <FormLabel>Preço Final</FormLabel>
+                                            <Input type="number" {...register("finalPrice")} />
+                                        </FormControl>
+                                        <Button colorScheme='blue' mr={3} type="submit" isLoading={isSubmitting}>
+                                            Reservar Quarto
+                                        </Button>
+                                    </form>
+                                </ModalBody>
+
+                                <ModalFooter>
+                                    <Button onClick={onClose}>Cancelar</Button>
+                                </ModalFooter>
+                            </ModalContent>
+                        </Modal>
                     </>
                 )
             }
