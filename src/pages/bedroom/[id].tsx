@@ -1,5 +1,3 @@
-import type { GetServerSideProps, NextPage } from 'next'
-import React, { useContext } from "react"
 import {
     Image,
     Box,
@@ -30,22 +28,30 @@ import {
     NumberDecrementStepper,
     useToast
 } from '@chakra-ui/react'
+import type { GetServerSideProps, NextPage } from 'next'
+import { useContext, useState } from "react"
 import { Cards } from '../../components/cards/cards'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
-
+import { differenceInDays, format } from 'date-fns'
 
 const Bedroom: NextPage = ({ data }: any) => {
 
+    const toast = useToast()
     const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType } = data
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { user } = useContext(AuthContext)
-    const toast = useToast()
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
-    let min = 100000000
-    let max = 999999999
-    const x = Math.floor(Math.random() * (max - min + 1)) + min
+    const [dateFrom, setDateFrom] = useState<any>(new Date())
+    const [dateTo, setDateTo] = useState<any>(new Date())
+
+    const dateFromTest = new Date(dateFrom)
+    const dateToTest = new Date(dateTo)
+
+    const difference = (differenceInDays(dateToTest, dateFromTest))
+    const priceFinal = price * difference
+
 
     const wide = useBreakpointValue({
         base: false,
@@ -54,17 +60,17 @@ const Bedroom: NextPage = ({ data }: any) => {
 
     const onSubmit = async (data: any) => {
         const createReserve = {
-            reserveNumber: data.reserveNumber,
             bedroomNumber: data.bedroomNumber,
             bedroomType: data.bedroomType,
-            nightsNumber: data.nightsNumber,
-            to: data.to,
+            nightsNumber: difference,
             from: data.from,
-            finalPrice: data.finalPrice,
-            guestsNumber: data.guestsNumber
+            to: data.to,
+            guestsNumber: data.guestsNumber,
+            finalPrice: priceFinal
         }
         await api.put(`/auth/user/${user.id}`, createReserve)
             .then(res => {
+                console.log(res)
                 toast({
                     position: 'top-start',
                     isClosable: true,
@@ -160,39 +166,44 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <FormControl>
                                             <FormLabel>Número do Quarto</FormLabel>
-                                            <Input value={bedroomNumber} {...register("bedroomNumber")} />
-                                        </FormControl>
-                                        <FormControl mt={4}>
-                                            <FormLabel>Número de Reserva</FormLabel>
-                                            <Input value={x} {...register("reserveNumber")} />
+                                            <Input
+                                                value={bedroomNumber}
+                                                {...register("bedroomNumber")}
+                                            />
                                         </FormControl>
                                         <FormControl mt={4}>
                                             <FormLabel>Tipo de Quarto</FormLabel>
-                                            <Input value={bedroomType} {...register("bedroomType")} />
-                                        </FormControl>
-                                        <FormControl mt={4} isRequired>
-                                            <FormLabel>Número de Noites</FormLabel>
-                                            <NumberInput min={1} isRequired>
-                                                <NumberInputField
-                                                    {...register("nightsNumber")}
-                                                />
-                                                <NumberInputStepper>
-                                                    <NumberIncrementStepper />
-                                                    <NumberDecrementStepper />
-                                                </NumberInputStepper>
-                                            </NumberInput>
+                                            <Input
+                                                value={bedroomType}
+                                                {...register("bedroomType")}
+                                            />
                                         </FormControl>
                                         <FormControl mt={4} isRequired>
                                             <FormLabel>De</FormLabel>
-                                            <Input type="date" {...register("to")} />
+                                            <Input
+                                                type="date"
+                                                {...register("from")}
+                                                onChange={(e) => { setDateFrom(e.target.value) }}
+                                                defaultValue={format(dateFromTest, 'yyyy-MM-dd')}
+                                            />
                                         </FormControl>
                                         <FormControl mt={4} isRequired>
                                             <FormLabel>Até</FormLabel>
-                                            <Input type="date" {...register("from")} />
+                                            <Input
+                                                type="date"
+                                                {...register("to")}
+                                                onChange={(e) => { setDateTo(e.target.value) }}
+                                                defaultValue={format(dateToTest, 'yyyy-MM-dd')}
+                                            />
                                         </FormControl>
                                         <FormControl mt={4} isRequired>
                                             <FormLabel>Número de Pessoas</FormLabel>
-                                            <NumberInput min={1} max={capacity} isRequired>
+                                            <NumberInput
+                                                defaultValue={1}
+                                                min={1}
+                                                max={capacity}
+                                                isRequired
+                                            >
                                                 <NumberInputField
                                                     {...register("guestsNumber")}
                                                 />
@@ -202,9 +213,26 @@ const Bedroom: NextPage = ({ data }: any) => {
                                                 </NumberInputStepper>
                                             </NumberInput>
                                         </FormControl>
+                                        <FormControl mt={4} isRequired>
+                                            <FormLabel>Número de Noites</FormLabel>
+                                            <NumberInput
+                                                min={1}
+                                                isRequired
+                                                defaultValue=""
+                                                value={difference}
+                                            >
+                                                <NumberInputField
+                                                    {...register("nightsNumber")}
+                                                />
+                                            </NumberInput>
+                                        </FormControl>
                                         <FormControl mt={4}>
                                             <FormLabel>Preço Final</FormLabel>
-                                            <Input type="number" {...register("finalPrice")} />
+                                            <Input
+                                                type="number"
+                                                {...register("priceFinal")}
+                                                value={priceFinal}
+                                            />
                                         </FormControl>
                                         <Button colorScheme='blue' mr={3} type="submit" isLoading={isSubmitting}>
                                             Reservar Quarto
