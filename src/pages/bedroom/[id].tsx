@@ -39,7 +39,7 @@ import { differenceInDays, format } from 'date-fns'
 const Bedroom: NextPage = ({ data }: any) => {
 
     const toast = useToast()
-    const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType } = data
+    const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType, imageURL } = data
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { user } = useContext(AuthContext)
@@ -98,7 +98,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                         <Center mt="40px" mx="10px" mb="15px">
                             <SimpleGrid columns={2} spacing={5} w="100%" maxW="1100px">
                                 <Box h="100%">
-                                    <Image src="/logo.png" alt="bedroomImage" h="100%" maxH="500px" w="100%" />
+                                    <Image src={imageURL} alt="bedroomImage" h="500px" maxH="500px" w="100%" objectFit="cover" />
                                 </Box>
                                 <SimpleGrid>
                                     <Box>
@@ -156,7 +156,6 @@ const Bedroom: NextPage = ({ data }: any) => {
                         <Modal
                             isOpen={isOpen}
                             onClose={onClose}
-                            isCentered
                         >
                             <ModalOverlay />
                             <ModalContent>

@@ -16,7 +16,8 @@ type Bedroom = {
     description: string,
     capacity: Number,
     bedsNumber: Number,
-    price: Number
+    price: Number,
+    imageURL: string
 }
 
 export function Cards({ filter }: any) {
@@ -58,7 +59,7 @@ export function Cards({ filter }: any) {
                                     key={bedroom._id}
                                 >
                                     <Image
-                                        src="/logo.png"
+                                        src={bedroom.imageURL}
                                         alt="image"
                                         maxH="300px"
                                         h="100%"

@@ -14,6 +14,7 @@ type User = {
     dateBirthday: Date,
     phoneNumber: number,
     address: string,
+    userType: string
 }
 
 type SignInData = {
@@ -47,8 +48,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': token
                 }
             }).then(response => {
-                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber } = response.data.decoded
-                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber })
+                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType } = response.data.decoded
+                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType })
             })
         }
 
@@ -70,8 +71,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': response.data.token
                 }
             }).then(response => {
-                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber } = response.data.decoded
-                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber })
+                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType } = response.data.decoded
+                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType })
             })
         } catch (err) {
             console.log(err)
