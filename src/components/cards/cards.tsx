@@ -4,9 +4,15 @@ import {
     Image,
     Text,
     Flex,
-    Center
+    Center,
+    Stack,
+    useColorModeValue,
+    Heading,
+    Badge,
+    Button
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from "react"
 import { api } from '../../services/api'
 
@@ -22,6 +28,7 @@ type Bedroom = {
 
 export function Cards({ filter }: any) {
 
+    const router = useRouter()
     const [bedrooms, setBedrooms] = useState([])
 
     useEffect(() => {
@@ -39,92 +46,99 @@ export function Cards({ filter }: any) {
             <Center>
                 <Grid
                     w="100%"
-                    maxW="1100px"
-                    templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(3, 1fr)']}
-                    gap={6}
+                    templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(3, 1fr)']}
+                    gap={2}
                     my="10px"
                     px="10px"
                 >
                     {
                         bedrooms.map((bedroom: Bedroom) => {
                             return (
-                                <Box
-                                    maxW='sm'
-                                    borderRadius='8px 8px 0 0'
-                                    overflow='hidden'
-                                    boxShadow="
-                                        rgba(0, 0, 0, 0.12) 0px 1px 3px, 
-                                        rgba(0, 0, 0, 0.24) 0px 1px 2px;"
-                                    mx="auto"
-                                    key={bedroom._id}
-                                >
-                                    <Image
-                                        src={bedroom.imageURL}
-                                        alt="image"
-                                        maxH="300px"
-                                        h="100%"
-                                        w="100%"
-                                        objectFit="cover"
-                                    />
-                                    <Box
-                                        p='2'
-                                        bgColor="#F5F5F5"
-                                        h="100%"
-                                    >
-                                        <Box display='flex' alignItems='baseline'>
-                                            <Box
-                                                color='gray.500'
-                                                fontWeight='semibold'
-                                                fontSize='xs'
-                                                textTransform='uppercase'
-                                            >
-                                                {bedroom.capacity} pessoa(s) &bull; {bedroom.bedsNumber} camas
-                                            </Box>
-                                        </Box>
-                                        <Flex
-                                            fontWeight='semibold'
-                                            as='h4'
-                                            lineHeight='tight'
-                                            isTruncated
-                                            justify="space-between"
-                                        >
-                                            {bedroom.bedroomName}
-                                            <Text>{bedroom.price}€</Text>
-                                        </Flex>
-                                        <Flex justify="space-between" h="65px">
-                                            <Box
-                                                as='span'
-                                                color='gray.600'
-                                                fontSize='sm'
-                                            >
+                                <>
+                                    <Center py={6}>
+                                        <Stack
+                                            borderWidth="1px"
+                                            borderRadius="lg"
+                                            w={{ sm: '100%', md: '540px' }}
+                                            height={{ sm: '476px', md: '20rem' }}
+                                            direction={{ base: 'column', md: 'row' }}
+                                            bg={useColorModeValue('white', 'gray.900')}
+                                            boxShadow={'2xl'}
+                                            padding={4}>
+                                            <Flex flex={1} bg="blue.200">
+                                                <Image
+                                                    objectFit="cover"
+                                                    boxSize="100%"
+                                                    src={bedroom.imageURL}
+                                                />
+                                            </Flex>
+                                            <Stack
+                                                flex={1}
+                                                flexDirection="column"
+                                                justifyContent="center"
+                                                alignItems="center"
+                                                p={1}
+                                                pt={2}>
+                                                <Heading fontSize={'2xl'} fontFamily={'body'}>
+                                                    {bedroom.bedroomName}
+                                                </Heading>
+                                                <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
+                                                    {bedroom.price}€
+                                                </Text>
                                                 <Text
-                                                    pr="10px"
-                                                    color='gray.500'
-                                                    fontSize='sm'
-                                                    noOfLines={3}
-                                                    maxW="200px"
-                                                    w="100%"
-                                                >
+                                                    textAlign={'center'}
+                                                    color={useColorModeValue('gray.700', 'gray.400')}
+                                                    px={3}>
                                                     {bedroom.description}
                                                 </Text>
-                                            </Box>
-                                            <Link href={"/bedroom/" + bedroom._id} passHref>
-                                                <Box
-                                                    as="button"
-                                                    bgColor="#C29A76"
-                                                    fontWeight="light"
-                                                    _hover={{ bgColor: "rgba(0, 0, 0, 0.2)" }}
-                                                    w="100px"
-                                                    h="30px"
-                                                    borderRadius="4px"
-                                                    alignSelf='flex-end'
-                                                >
-                                                    Ver mais
-                                                </Box>
-                                            </Link>
-                                        </Flex>
-                                    </Box>
-                                </Box>
+                                                <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+                                                    <Badge
+                                                        px={2}
+                                                        py={1}
+                                                        bg={useColorModeValue('gray.50', 'gray.800')}
+                                                        fontWeight={'400'}>
+                                                        {bedroom.capacity} pessoa(s)
+                                                    </Badge>
+                                                    <Badge
+                                                        px={2}
+                                                        py={1}
+                                                        bg={useColorModeValue('gray.50', 'gray.800')}
+                                                        fontWeight={'400'}>
+                                                        {bedroom.bedsNumber} cama(s)
+                                                    </Badge>
+                                                </Stack>
+                                                <Stack
+                                                    width={'100%'}
+                                                    mt={'2rem'}
+                                                    direction={'row'}
+                                                    padding={2}
+                                                    justifyContent={'space-between'}
+                                                    alignItems={'center'}>
+                                                    <Link href={"/bedroom/" + bedroom._id} passHref>
+                                                        <Button
+                                                            flex={1}
+                                                            fontSize={'sm'}
+                                                            rounded={'full'}
+                                                            bg={'#C29A76'}
+                                                            color={'white'}
+                                                            boxShadow={
+                                                                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                            }
+                                                            _hover={{
+                                                                bg: '#C29B80',
+                                                            }}
+                                                            _focus={{
+                                                                bg: '#C29B80',
+                                                            }}
+                                                            >
+                                                            Ver Mais
+                                                        </Button>
+                                                    </Link>
+                                                </Stack>
+                                            </Stack>
+                                        </Stack>
+                                    </Center>
+                                </>
                             )
                         })
                     }

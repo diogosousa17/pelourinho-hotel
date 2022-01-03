@@ -12,6 +12,7 @@ export function BedroomsDashboard() {
     const [bedrooms, setBedrooms] = useState<any>([])
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
+    console.log(bedrooms.bedroomName)
 
     useEffect(() => {
         api.get("/bedrooms/bedroom", {
@@ -20,7 +21,7 @@ export function BedroomsDashboard() {
             .catch((err) => {
                 console.error("Erro: " + err)
             })
-    })
+    }, [])
 
     const onSubmit = () => {
 
@@ -96,6 +97,7 @@ export function BedroomsDashboard() {
                                 <FormControl>
                                     <FormLabel>Nome do Quarto</FormLabel>
                                     <Input
+                                        defaultValue={bedrooms.bedroomName}
                                         {...register("bedroomName")}
                                     />
                                 </FormControl>

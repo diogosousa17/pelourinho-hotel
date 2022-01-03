@@ -99,7 +99,7 @@ export function RegisterButton() {
                         </DrawerHeader>
                     </Flex>
                     <Center>
-                        <DrawerBody w="100%" display="flex" align="center">
+                        <DrawerBody w="100%" h="90vh" display="flex" align="center">
                             <Center h="100%" w="100%">
                                 <VStack>
                                     <Text
@@ -158,16 +158,6 @@ export function RegisterButton() {
                                             {...register("password")}
                                             mb="10px"
                                         />
-                                        {/* <Input
-                                        w="100%"
-                                        maxW="550px"
-                                        h="50px"
-                                        bgColor="#FFFF"
-                                        type="password"
-                                        borderRadius="0"
-                                        placeholder="Repetir a Password"
-                                        border="0px"
-                                    /> */}
                                         <Center>
                                             <Button
                                                 w="225px"

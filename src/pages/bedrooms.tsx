@@ -25,7 +25,7 @@ const Bedrooms: NextPage = ({ query }: any) => {
                 </Flex>
             </Center>
             <Cards filter={query} />
-            <PaginationComp page={query} />
+            {/* <PaginationComp page={query} /> */}
         </>
     )
 }

@@ -16,17 +16,19 @@ import {
     useToast,
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../contexts/AuthContext'
 export function LoginButton() {
 
-    const toast = useToast()
-    const { signIn, isAuthnticated } = useContext(AuthContext)
+    const router = useRouter()
+    const { signIn } = useContext(AuthContext)
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
 
     async function handleSignIn(data: any) {
         await signIn(data)
+        router.push('/')
     }
 
     const [size, setSize] = React.useState('full')
@@ -74,7 +76,7 @@ export function LoginButton() {
                         </DrawerHeader>
                     </Flex>
                     <DrawerBody>
-                        <Center h="100%">
+                        <Center h="100%" w="100%">
                             <VStack>
                                 <Text fontSize='5xl' fontWeight='bold' textAlign="center">Login</Text>
                                 <form onSubmit={handleSubmit(handleSignIn)}>
@@ -124,8 +126,8 @@ export function LoginButton() {
                                     </Center>
                                 </form>
                                 <Center>
-                                    <Link href="/" passHref>
-                                        <Box as="a">
+                                    <Link href="/resetPassword" passHref>
+                                        <Box as="a" onClick={handleClose}>
                                             <Text textAlign="center">Esqueceu-se da Palavra-Passe? Recuperar!</Text>
                                         </Box>
                                     </Link>

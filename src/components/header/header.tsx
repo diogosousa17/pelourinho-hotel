@@ -104,11 +104,6 @@ export function Header() {
                                                 Contact Us
                                             </Text>
                                         </Link>
-                                        {/* <Link href="/dashboard" passHref>
-                                            <Text as="a" cursor="pointer">
-                                                Dashboard
-                                            </Text>
-                                        </Link> */}
                                     </Stack>
                                 </DrawerBody>
                                 <DrawerFooter>

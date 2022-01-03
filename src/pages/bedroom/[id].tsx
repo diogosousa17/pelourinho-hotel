@@ -1,11 +1,8 @@
 import {
     Image,
     Box,
-    Center,
     Flex,
     Text,
-    Divider,
-    UnorderedList,
     SimpleGrid,
     Button,
     ListItem,
@@ -26,11 +23,17 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
-    useToast
+    useToast,
+    Container,
+    Stack,
+    Heading,
+    useColorModeValue,
+    StackDivider,
+    VStack,
+    List
 } from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useContext, useState } from "react"
-import { Cards } from '../../components/cards/cards'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
@@ -90,163 +93,220 @@ const Bedroom: NextPage = ({ data }: any) => {
 
     return (
         <>
-            {
-                !wide ? (
-                    <div>responsive</div>
-                ) : (
-                    <>
-                        <Center mt="40px" mx="10px" mb="15px">
-                            <SimpleGrid columns={2} spacing={5} w="100%" maxW="1100px">
-                                <Box h="100%">
-                                    <Image src={imageURL} alt="bedroomImage" h="500px" maxH="500px" w="100%" objectFit="cover" />
-                                </Box>
-                                <SimpleGrid>
-                                    <Box>
-                                        <Flex justify="space-between" w="100%" align="flex-start">
-                                            <Text fontSize="40px" fontWeight="medium">{bedroomName}</Text>
-                                            <Flex align="flex-end">
-                                                <Text fontSize="40px" fontWeight="medium">{price}€</Text>
-                                                <Text fontSize="13px">/noite</Text>
-                                            </Flex>
-                                        </Flex>
-                                        <Flex>
-                                            <Text textAlign="left" w="100%" fontSize="14px" color="#888888">{capacity} pessoas &bull; {bedsNumber} camas</Text>
-                                        </Flex>
-                                    </Box>
-                                    <Text textAlign="justify" w="100%">{description}</Text>
-                                    <Center h="1px">
-                                        <Divider borderWidth="0.5px" borderColor="#000" w="100px" />
-                                    </Center>
-                                    <Text textAlign="left" w="100%" fontWeight="semibold" h="100%">O quarto conta com as seguintes comodidades:</Text>
-                                    <SimpleGrid columns={2} w="100%" h="100%">
-                                        <UnorderedList>
+            <>
+                <Container maxW={'7xl'}>
+                    <SimpleGrid
+                        columns={{ base: 1, lg: 2 }}
+                        spacing={{ base: 8, md: 10 }}
+                        py={{ base: 18, md: 24 }}>
+                        <Flex>
+                            <Image
+                                rounded={'md'}
+                                alt={'product image'}
+                                src={imageURL}
+                                fit={'cover'}
+                                align={'center'}
+                                w={'100%'}
+                                h={{ base: '100%', sm: '400px', lg: '500px' }}
+                            />
+                        </Flex>
+                        <Stack spacing={{ base: 6, md: 10 }}>
+                            <Box as={'header'}>
+                                <Heading
+                                    lineHeight={1.1}
+                                    fontWeight={600}
+                                    fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}
+                                >
+                                    {bedroomName}
+                                </Heading>
+                                <Text
+                                    color={useColorModeValue('gray.900', 'gray.400')}
+                                    fontWeight={300}
+                                    fontSize={'2xl'}>
+                                    {price}€/noite
+                                </Text>
+                            </Box>
+
+                            <Stack
+                                spacing={{ base: 4, sm: 6 }}
+                                direction={'column'}
+                                divider={
+                                    <StackDivider
+                                        borderColor={useColorModeValue('gray.200', 'gray.600')}
+                                    />
+                                }>
+                                <VStack spacing={{ base: 4, sm: 6 }}>
+                                    <Text fontSize={'lg'}>
+                                        {description}
+                                    </Text>
+                                </VStack>
+                                <Box>
+                                    <Text
+                                        fontSize={{ base: '16px', lg: '18px' }}
+                                        color={useColorModeValue('yellow.500', 'yellow.300')}
+                                        fontWeight={'500'}
+                                        textTransform={'uppercase'}
+                                        mb={'4'}>
+                                        características
+                                    </Text>
+
+                                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+                                        <List spacing={2}>
                                             {
                                                 characteristics.slice(0, 4).map((characteristic: string) => <ListItem key={characteristic}>{characteristic}</ListItem>)
                                             }
-                                        </UnorderedList>
-                                        <UnorderedList dir="rtl">
+                                        </List>
+                                        <List spacing={2}>
                                             {
                                                 characteristics.slice(4, 7).map((characteristic: string) => <ListItem key={characteristic}>{characteristic}</ListItem>)
                                             }
-                                        </UnorderedList>
+                                        </List>
                                     </SimpleGrid>
-                                    <Flex align="flex-end">
-                                        <Button
-                                            bgColor="#C29A76"
-                                            w="100%"
-                                            maxH="50px"
-                                            h="100%"
-                                            mt="50px"
-                                            borderRadius="0"
-                                            onClick={onOpen}
-                                        >
-                                            RESERVAR
-                                        </Button>
-                                    </Flex>
-                                </SimpleGrid>
-                            </SimpleGrid>
-                        </Center>
-                        <Center>
-                            <Divider borderWidth="0,5px" w="1000px" mb="5px" borderColor="#000" />
-                        </Center>
-                        <Flex w="930px" justify="center">
-                            <Text fontSize="24px" fontWeight="bold"> Sugestões:</Text>
-                        </Flex>
-                        <Cards />
-                        <Modal
-                            isOpen={isOpen}
-                            onClose={onClose}
-                        >
-                            <ModalOverlay />
-                            <ModalContent>
-                                <ModalHeader>Reservar Quarto</ModalHeader>
-                                <ModalCloseButton />
-                                <ModalBody pb={6}>
-                                    <form onSubmit={handleSubmit(onSubmit)}>
-                                        <FormControl>
-                                            <FormLabel>Número do Quarto</FormLabel>
-                                            <Input
-                                                value={bedroomNumber}
-                                                {...register("bedroomNumber")}
-                                            />
-                                        </FormControl>
-                                        <FormControl mt={4}>
-                                            <FormLabel>Tipo de Quarto</FormLabel>
-                                            <Input
-                                                value={bedroomType}
-                                                {...register("bedroomType")}
-                                            />
-                                        </FormControl>
-                                        <FormControl mt={4} isRequired>
-                                            <FormLabel>De</FormLabel>
-                                            <Input
-                                                type="date"
-                                                {...register("from")}
-                                                onChange={(e) => { setDateFrom(e.target.value) }}
-                                                defaultValue={format(dateFromTest, 'yyyy-MM-dd')}
-                                            />
-                                        </FormControl>
-                                        <FormControl mt={4} isRequired>
-                                            <FormLabel>Até</FormLabel>
-                                            <Input
-                                                type="date"
-                                                {...register("to")}
-                                                onChange={(e) => { setDateTo(e.target.value) }}
-                                                defaultValue={format(dateToTest, 'yyyy-MM-dd')}
-                                            />
-                                        </FormControl>
-                                        <FormControl mt={4} isRequired>
-                                            <FormLabel>Número de Pessoas</FormLabel>
-                                            <NumberInput
-                                                defaultValue={1}
-                                                min={1}
-                                                max={capacity}
-                                                isRequired
-                                            >
-                                                <NumberInputField
-                                                    {...register("guestsNumber")}
-                                                />
-                                                <NumberInputStepper>
-                                                    <NumberIncrementStepper />
-                                                    <NumberDecrementStepper />
-                                                </NumberInputStepper>
-                                            </NumberInput>
-                                        </FormControl>
-                                        <FormControl mt={4} isRequired>
-                                            <FormLabel>Número de Noites</FormLabel>
-                                            <NumberInput
-                                                min={1}
-                                                isRequired
-                                                defaultValue=""
-                                                value={difference}
-                                            >
-                                                <NumberInputField
-                                                    {...register("nightsNumber")}
-                                                />
-                                            </NumberInput>
-                                        </FormControl>
-                                        <FormControl mt={4}>
-                                            <FormLabel>Preço Final</FormLabel>
-                                            <Input
-                                                type="number"
-                                                {...register("priceFinal")}
-                                                value={priceFinal}
-                                            />
-                                        </FormControl>
-                                        <Button colorScheme='blue' mr={3} type="submit" isLoading={isSubmitting}>
-                                            Reservar Quarto
-                                        </Button>
-                                    </form>
-                                </ModalBody>
+                                </Box>
+                                <Box>
+                                    <Text
+                                        fontSize={{ base: '16px', lg: '18px' }}
+                                        color={useColorModeValue('yellow.500', 'yellow.300')}
+                                        fontWeight={'500'}
+                                        textTransform={'uppercase'}
+                                        mb={'4'}>
+                                        Detalhes do Quarto
+                                    </Text>
 
-                                <ModalFooter>
-                                    <Button onClick={onClose}>Cancelar</Button>
-                                </ModalFooter>
-                            </ModalContent>
-                        </Modal>
-                    </>
-                )
-            }
+                                    <List spacing={2}>
+                                        <ListItem>
+                                            <Text as={'span'} fontWeight={'bold'}>
+                                                Tipo de Quarto:
+                                            </Text>{' '}
+                                            {bedroomType}
+                                        </ListItem>
+                                        <ListItem>
+                                            <Text as={'span'} fontWeight={'bold'}>
+                                                Capacidade:
+                                            </Text>{' '}
+                                            {capacity} pessoas
+                                        </ListItem>
+                                        <ListItem>
+                                            <Text as={'span'} fontWeight={'bold'}>
+                                                Número de Camas:
+                                            </Text>{' '}
+                                            {bedsNumber}
+                                        </ListItem>
+                                    </List>
+                                </Box>
+                            </Stack>
+
+                            <Button
+                                rounded={'none'}
+                                w={'full'}
+                                mt={8}
+                                size={'lg'}
+                                py={'7'}
+                                bg={'#C29A76'}
+                                color={useColorModeValue('white', 'gray.900')}
+                                textTransform={'uppercase'}
+                                _hover={{
+                                    transform: 'translateY(2px)',
+                                    boxShadow: 'lg',
+                                }}
+                                onClick={onOpen}
+                            >
+                                Reservar
+                            </Button>
+                        </Stack>
+                    </SimpleGrid>
+                </Container>
+                <Modal
+                    isOpen={isOpen}
+                    onClose={onClose}
+                >
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Reservar Quarto</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody pb={6}>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <FormControl>
+                                    <FormLabel>Número do Quarto</FormLabel>
+                                    <Input
+                                        value={bedroomNumber}
+                                        {...register("bedroomNumber")}
+                                    />
+                                </FormControl>
+                                <FormControl mt={4}>
+                                    <FormLabel>Tipo de Quarto</FormLabel>
+                                    <Input
+                                        value={bedroomType}
+                                        {...register("bedroomType")}
+                                    />
+                                </FormControl>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>De</FormLabel>
+                                    <Input
+                                        type="date"
+                                        {...register("from")}
+                                        onChange={(e) => { setDateFrom(e.target.value) }}
+                                        defaultValue={format(dateFromTest, 'yyyy-MM-dd')}
+                                    />
+                                </FormControl>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Até</FormLabel>
+                                    <Input
+                                        type="date"
+                                        {...register("to")}
+                                        onChange={(e) => { setDateTo(e.target.value) }}
+                                        defaultValue={format(dateToTest, 'yyyy-MM-dd')}
+                                    />
+                                </FormControl>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Número de Pessoas</FormLabel>
+                                    <NumberInput
+                                        defaultValue={1}
+                                        min={1}
+                                        max={capacity}
+                                        isRequired
+                                    >
+                                        <NumberInputField
+                                            {...register("guestsNumber")}
+                                        />
+                                        <NumberInputStepper>
+                                            <NumberIncrementStepper />
+                                            <NumberDecrementStepper />
+                                        </NumberInputStepper>
+                                    </NumberInput>
+                                </FormControl>
+                                <FormControl mt={4} isRequired>
+                                    <FormLabel>Número de Noites</FormLabel>
+                                    <NumberInput
+                                        min={1}
+                                        isRequired
+                                        defaultValue=""
+                                        value={difference}
+                                    >
+                                        <NumberInputField
+                                            {...register("nightsNumber")}
+                                        />
+                                    </NumberInput>
+                                </FormControl>
+                                <FormControl mt={4}>
+                                    <FormLabel>Preço Final</FormLabel>
+                                    <Input
+                                        type="number"
+                                        {...register("priceFinal")}
+                                        value={priceFinal}
+                                    />
+                                </FormControl>
+                                <Button colorScheme='blue' mr={3} type="submit" isLoading={isSubmitting}>
+                                    Reservar Quarto
+                                </Button>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button onClick={onClose}>Cancelar</Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </>
         </>
     )
 }
