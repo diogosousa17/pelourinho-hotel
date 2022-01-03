@@ -54,10 +54,6 @@ export function Sidebar({ children }: any) {
                     </Box>
                 </Box>
                 <Box>
-
-                {/* <UsersDashboard /> */}
-                {/* <BedroomsDashboard /> */}
-                {/* <CreateBedroom /> */}
                 </Box>
             </Flex>
         </>
@@ -112,6 +108,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                     >
                         <MdOutlineBedroomParent />
                         <Text mx="10px">Criar Quarto</Text>
+                    </Flex>
+                    <Flex
+                        align="center"
+                        as="button"
+                        onClick={() => { router.push('/dashboard/createUser') }}
+                    >
+                        <MdOutlineBedroomParent />
+                        <Text mx="10px">Criar Utilizador</Text>
                     </Flex>
                 </VStack>
             </Box>

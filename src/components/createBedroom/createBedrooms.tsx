@@ -48,9 +48,9 @@ export function CreateBedrooms() {
 
     return (
         <>
-            <Flex justify="center" h="calc(100vh - 124px)">
+            <Flex>
                 <Sidebar />
-                <Box overflowY="scroll" w="1648px" h="calc(100vh - 124px)">
+                <Box overflowY="scroll" w="1648px" h="calc(100vh - 124px)" display="flex" flexDirection="column" justifyContent="center">
                     <Text textAlign="center" fontSize="4xl">Criar Quarto</Text>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Center>

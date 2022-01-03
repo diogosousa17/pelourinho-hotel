@@ -104,24 +104,27 @@ export function Header() {
                                                 Contact Us
                                             </Text>
                                         </Link>
+                                        {/* <Link href="/dashboard" passHref>
+                                            <Text as="a" cursor="pointer">
+                                                Dashboard
+                                            </Text>
+                                        </Link> */}
                                     </Stack>
                                 </DrawerBody>
                                 <DrawerFooter>
                                     <VStack w="100%">
                                         {
                                             isAuthnticated ? (
-                                                <>
-                                                    <Flex align="center" justify="space-between" w="100%">
-                                                        <Flex align="center">
-                                                            <Avatar name={user.username} />
-                                                            <Text>{user.username}</Text>
-                                                        </Flex>
-                                                        <Flex>
-                                                            <Text><FiSettings size={25} /></Text>
-                                                            <Box as="button" onClick={signOut} ml="10px"><FiLogOut size={25} /></Box>
-                                                        </Flex>
+                                                <Flex align="center" justify="space-between" w="100%">
+                                                    <Flex align="center">
+                                                        <Avatar name={user.username} />
+                                                        <Text>{user.username}</Text>
                                                     </Flex>
-                                                </>
+                                                    <Flex>
+                                                        <Text><FiSettings size={25} /></Text>
+                                                        <Box as="button" onClick={signOut} ml="10px"><FiLogOut size={25} /></Box>
+                                                    </Flex>
+                                                </Flex>
                                             ) : (
                                                 <>
                                                     <Center>
@@ -153,31 +156,74 @@ export function Header() {
                             </Link>
                             <Flex w="100%" justify="space-between" align="center" px="5">
                                 <Box>
-                                    <Flex>
-                                        <Link href="/" passHref>
-                                            <Text as="a" cursor="pointer">
-                                                Home
-                                            </Text>
-                                        </Link>
-                                        <Spacer />
-                                        <Link href="/bedrooms" passHref>
-                                            <Text as="a" cursor="pointer" pl="5">
-                                                Bedrooms
-                                            </Text>
-                                        </Link>
-                                        <Spacer />
-                                        <Link href="/" passHref>
-                                            <Text as="a" cursor="pointer" pl="5">
-                                                About Us
-                                            </Text>
-                                        </Link>
-                                        <Spacer />
-                                        <Link href="/" passHref>
-                                            <Text as="a" cursor="pointer" pl="5">
-                                                Contact Us
-                                            </Text>
-                                        </Link>
-                                    </Flex>
+                                    {
+                                        isAuthnticated ? (
+                                            <>
+                                                <Flex>
+                                                    <Link href="/" passHref>
+                                                        <Text as="a" cursor="pointer">
+                                                            Home
+                                                        </Text>
+                                                    </Link>
+                                                    <Spacer />
+                                                    <Link href="/bedrooms" passHref>
+                                                        <Text as="a" cursor="pointer" pl="5">
+                                                            Bedrooms
+                                                        </Text>
+                                                    </Link>
+                                                    <Spacer />
+                                                    <Link href="/" passHref>
+                                                        <Text as="a" cursor="pointer" pl="5">
+                                                            About Us
+                                                        </Text>
+                                                    </Link>
+                                                    <Spacer />
+                                                    <Link href="/" passHref>
+                                                        <Text as="a" cursor="pointer" pl="5">
+                                                            Contact Us
+                                                        </Text>
+                                                    </Link>
+                                                    <Spacer />
+                                                    {
+                                                        user.userType == "admin" &&
+                                                        <Link href="/dashboard" passHref>
+                                                            <Text as="a" cursor="pointer" pl="5">
+                                                                Dashboard
+                                                            </Text>
+                                                        </Link>
+                                                    }
+                                                </Flex>
+                                            </>
+                                        ) : (
+
+                                            <Flex>
+                                                <Link href="/" passHref>
+                                                    <Text as="a" cursor="pointer">
+                                                        Home
+                                                    </Text>
+                                                </Link>
+                                                <Spacer />
+                                                <Link href="/bedrooms" passHref>
+                                                    <Text as="a" cursor="pointer" pl="5">
+                                                        Bedrooms
+                                                    </Text>
+                                                </Link>
+                                                <Spacer />
+                                                <Link href="/" passHref>
+                                                    <Text as="a" cursor="pointer" pl="5">
+                                                        About Us
+                                                    </Text>
+                                                </Link>
+                                                <Spacer />
+                                                <Link href="/" passHref>
+                                                    <Text as="a" cursor="pointer" pl="5">
+                                                        Contact Us
+                                                    </Text>
+                                                </Link>
+                                                <Spacer />
+                                            </Flex>
+                                        )
+                                    }
                                 </Box>
                                 <Spacer />
                                 {
