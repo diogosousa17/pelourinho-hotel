@@ -33,7 +33,7 @@ const AccountInfo: NextPage = ({ data }: any) => {
             phoneNumber: data.phoneNumber,
             address: data.address
         }
-        await api.put(`/auth/user/${_id}`, changeUser)
+        await api.put(`/auth/updateUser/${_id}`, changeUser)
             .then(res => {
                 toast({
                     position: 'top-start',
@@ -60,46 +60,54 @@ const AccountInfo: NextPage = ({ data }: any) => {
                     w="100%"
                     maxW="3xl"
                 >
-                    <VStack mx="5">
+                    <VStack mx="5" w="100%">
                         <Center>
                             <Text fontSize='4xl' mt="24" textAlign="center">Definições de Conta</Text>
                         </Center>
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
                             <VStack>
-                                <FormControl isRequired>
+                                <FormControl>
                                     <FormLabel>Nome</FormLabel>
                                     <Input
                                         defaultValue={name}
                                         {...register("name")}
+                                        borderRadius="0"
                                         type="text"
+                                        w="100%"
+                                        maxW="300px"
                                     />
                                 </FormControl>
-                                <FormControl isRequired>
-                                    <FormLabel>Email</FormLabel>
-                                    <Input
-                                        defaultValue={email}
-                                        {...register("email")}
-                                        type="email"
-                                    />
-                                </FormControl>
+                                <Center>
+                                    <FormControl>
+                                        <FormLabel>Email</FormLabel>
+                                        <Input
+                                            defaultValue={email}
+                                            {...register("email")}
+                                            borderRadius="0"
+                                            type="email"
+                                        />
+                                    </FormControl>
+                                </Center>
                                 <FormControl>
                                     <FormLabel>Nif</FormLabel>
                                     <NumberInput
                                         defaultValue={nif}
-
+                                        borderRadius="0"
                                     >
                                         <NumberInputField
                                             {...register("nif")}
                                             pattern="[0-9]{9}"
+                                            borderRadius="0"
                                         />
                                     </NumberInput>
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>Data de Nascimento</FormLabel>
                                     <Input
-                                        defaultValue={format(new Date(data.dateBirthday), 'yyyy-MM-dd')}
+                                        // defaultValue={format(new Date(data.dateBirthday), 'yyyy-MM-dd')}
                                         {...register("dateBirthday")}
                                         type="date"
+                                        borderRadius="0"
                                     />
                                 </FormControl>
                                 <FormControl>
@@ -110,6 +118,7 @@ const AccountInfo: NextPage = ({ data }: any) => {
                                         <NumberInputField
                                             {...register("phoneNumber")}
                                             pattern="[0-9]{9}"
+                                            borderRadius="0"
                                         />
                                     </NumberInput>
                                 </FormControl>
@@ -119,10 +128,11 @@ const AccountInfo: NextPage = ({ data }: any) => {
                                         defaultValue={address}
                                         {...register("address")}
                                         type="text"
+                                        borderRadius="0"
                                     />
                                 </FormControl>
                                 <Center>
-                                    <Button type="submit" isLoading={isSubmitting}>Alterar Dados</Button>
+                                    <Button type="submit" isLoading={isSubmitting} w="100%" maxW="500px">Alterar Dados</Button>
                                 </Center>
                             </VStack>
                         </form>

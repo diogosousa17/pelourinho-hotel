@@ -184,7 +184,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                             <Text as={'span'} fontWeight={'bold'}>
                                                 Capacidade:
                                             </Text>{' '}
-                                            {capacity} pessoas
+                                            {capacity} pessoa(s)
                                         </ListItem>
                                         <ListItem>
                                             <Text as={'span'} fontWeight={'bold'}>

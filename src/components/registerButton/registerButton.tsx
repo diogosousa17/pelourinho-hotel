@@ -44,6 +44,8 @@ export function RegisterButton() {
             name: data.name,
             email: data.email,
             password: data.password,
+            dateBirthday: data.dateBirthday,
+            nif: data.nif
         }
         await api.post('/auth/register', newUser)
             .then(res => {
@@ -100,8 +102,8 @@ export function RegisterButton() {
                     </Flex>
                     <Center>
                         <DrawerBody w="100%" h="90vh" display="flex" align="center">
-                            <Center h="100%" w="100%">
-                                <VStack>
+                            <Center h="100%" w="100%" mx="10px">
+                                <VStack h="100%" justify="center">
                                     <Text
                                         fontSize='5xl'
                                         fontWeight='bold'
@@ -133,6 +135,7 @@ export function RegisterButton() {
                                             border="0px"
                                             {...register("name")}
                                             mb="10px"
+                                            ml="10px"
                                         />
                                         <Input
                                             w="100%"
@@ -151,12 +154,37 @@ export function RegisterButton() {
                                             maxW="550px"
                                             h="50px"
                                             bgColor="#FFFF"
+                                            type="date"
+                                            borderRadius="0"
+                                            border="0px"
+                                            {...register("dateBirthday")}
+                                            mb="10px"
+                                            ml="10px"
+                                        />
+                                        <Input
+                                            w="100%"
+                                            maxW="550px"
+                                            h="50px"
+                                            bgColor="#FFFF"
+                                            type="number"
+                                            placeholder="NIF"
+                                            borderRadius="0"
+                                            border="0px"
+                                            {...register("nif")}
+                                            mb="10px"
+                                        />
+                                        <Input
+                                            w="100%"
+                                            maxW="550px"
+                                            h="50px"
+                                            bgColor="#FFFF"
                                             type="password"
                                             borderRadius="0"
                                             placeholder="Palavra-Passe"
                                             border="0px"
                                             {...register("password")}
                                             mb="10px"
+                                            ml="10px"
                                         />
                                         <Center>
                                             <Button

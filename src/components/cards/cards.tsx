@@ -9,12 +9,16 @@ import {
     useColorModeValue,
     Heading,
     Badge,
-    Button
+    Button,
+    IconButton
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { api } from '../../services/api'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { parseCookies } from 'nookies'
+import { AuthContext } from '../../contexts/AuthContext'
 
 type Bedroom = {
     _id: string,
@@ -30,8 +34,19 @@ export function Cards({ filter }: any) {
 
     const router = useRouter()
     const [bedrooms, setBedrooms] = useState([])
+    const { 'hotel.token': token }: any = parseCookies()
+    const [tokens, setTokens] = useState('')
 
     useEffect(() => {
+        api.get('/auth/me', {
+            headers: {
+                'authorization': token
+            }
+        })
+            .then(res => {
+                setTokens(res.data.decoded.id)
+            })
+
         api.get("/bedrooms/bedroom", {
             params: filter
         })
@@ -39,7 +54,17 @@ export function Cards({ filter }: any) {
             .catch((err) => {
                 console.error("Erro: " + err)
             })
+
     }, [filter])
+
+    // const favorites = async () => {
+    //     api.post('/auth/favorites')
+    //         .then(res => {
+    //             console.log(res)
+    //         }).catch(err => {
+    //             console.log(err)
+    //         })
+    // }
 
     return (
         <>
@@ -47,7 +72,6 @@ export function Cards({ filter }: any) {
                 <Grid
                     w="100%"
                     templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(3, 1fr)']}
-                    gap={2}
                     my="10px"
                     px="10px"
                 >
@@ -114,6 +138,20 @@ export function Cards({ filter }: any) {
                                                     padding={2}
                                                     justifyContent={'space-between'}
                                                     alignItems={'center'}>
+                                                    <IconButton
+                                                        aria-label='favorites'
+                                                        bg="#FAE5E5"
+                                                        onClick={() => {
+                                                            api.post('/auth/favorites', { data: bedroom._id, tokens })
+                                                                .then(res => {
+                                                                    console.log(res)
+                                                                }).catch(err => {
+                                                                    console.log(err)
+                                                                })
+                                                        }}
+                                                    >
+                                                        <AiOutlineHeart />
+                                                    </IconButton>
                                                     <Link href={"/bedroom/" + bedroom._id} passHref>
                                                         <Button
                                                             flex={1}
@@ -130,7 +168,7 @@ export function Cards({ filter }: any) {
                                                             _focus={{
                                                                 bg: '#C29B80',
                                                             }}
-                                                            >
+                                                        >
                                                             Ver Mais
                                                         </Button>
                                                     </Link>

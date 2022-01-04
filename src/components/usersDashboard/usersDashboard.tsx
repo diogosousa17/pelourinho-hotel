@@ -41,7 +41,7 @@ export function UsersDashboard() {
                                 <>
                                     <HStack spacing={10} mt="10px">
                                         <Image
-                                            src="https://github.com/diogosousa17.png"
+                                            src="/avatar.png"
                                             w="120px"
                                             h="120px"
                                             borderRadius="8px"
