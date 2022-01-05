@@ -235,6 +235,7 @@ export function Header() {
                                                 <Portal>
                                                     <MenuList>
                                                         <MenuItem><Box as="button" onClick={() => router.push(`/accountInfo/${user.id}`)}>Definições de Conta</Box></MenuItem>
+                                                        <MenuItem><Box as="button" onClick={() => router.push(`/favorites`)}>Favoritos</Box></MenuItem>
                                                         <MenuItem as="button" onClick={signOut}>Sair</MenuItem>
                                                     </MenuList>
                                                 </Portal>

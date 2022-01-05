@@ -7,8 +7,6 @@ import { PaginationComp } from '../components/paginationComp/paginationComp'
 
 const Bedrooms: NextPage = ({ query }: any) => {
 
-
-
     return (
         <>
             <BedroomFilter filter={query} />

@@ -55,12 +55,6 @@ const Bedroom: NextPage = ({ data }: any) => {
     const difference = (differenceInDays(dateToTest, dateFromTest))
     const priceFinal = price * difference
 
-
-    const wide = useBreakpointValue({
-        base: false,
-        lg: true
-    })
-
     const onSubmit = async (data: any) => {
         const createReserve = {
             bedroomNumber: data.bedroomNumber,

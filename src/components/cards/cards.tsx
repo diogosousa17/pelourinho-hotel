@@ -1,6 +1,4 @@
 import {
-    Box,
-    Grid,
     Image,
     Text,
     Flex,
@@ -10,7 +8,9 @@ import {
     Heading,
     Badge,
     Button,
-    IconButton
+    IconButton,
+    SimpleGrid,
+    useBreakpointValue
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -18,7 +18,6 @@ import React, { useContext, useEffect, useState } from "react"
 import { api } from '../../services/api'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { parseCookies } from 'nookies'
-import { AuthContext } from '../../contexts/AuthContext'
 
 type Bedroom = {
     _id: string,
@@ -32,7 +31,6 @@ type Bedroom = {
 
 export function Cards({ filter }: any) {
 
-    const router = useRouter()
     const [bedrooms, setBedrooms] = useState([])
     const { 'hotel.token': token }: any = parseCookies()
     const [tokens, setTokens] = useState('')
@@ -54,24 +52,15 @@ export function Cards({ filter }: any) {
             .catch((err) => {
                 console.error("Erro: " + err)
             })
-
     }, [filter])
-
-    // const favorites = async () => {
-    //     api.post('/auth/favorites')
-    //         .then(res => {
-    //             console.log(res)
-    //         }).catch(err => {
-    //             console.log(err)
-    //         })
-    // }
 
     return (
         <>
             <Center>
-                <Grid
+                <SimpleGrid
                     w="100%"
-                    templateColumns={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(3, 1fr)']}
+                    columns={{ sm: 1, md: 2, lg: 2, xl: 3 }}
+                    spacing={5}
                     my="10px"
                     px="10px"
                 >
@@ -84,11 +73,12 @@ export function Cards({ filter }: any) {
                                             borderWidth="1px"
                                             borderRadius="lg"
                                             w={{ sm: '100%', md: '540px' }}
-                                            height={{ sm: '476px', md: '20rem' }}
+                                            height={{ sm: '700px', md: '20rem' }}
                                             direction={{ base: 'column', md: 'row' }}
                                             bg={useColorModeValue('white', 'gray.900')}
                                             boxShadow={'2xl'}
-                                            padding={4}>
+                                            padding={4}
+                                        >
                                             <Flex flex={1} bg="blue.200">
                                                 <Image
                                                     objectFit="cover"
@@ -102,7 +92,8 @@ export function Cards({ filter }: any) {
                                                 justifyContent="center"
                                                 alignItems="center"
                                                 p={1}
-                                                pt={2}>
+                                                pt={2}
+                                            >
                                                 <Heading fontSize={'2xl'} fontFamily={'body'}>
                                                     {bedroom.bedroomName}
                                                 </Heading>
@@ -112,7 +103,8 @@ export function Cards({ filter }: any) {
                                                 <Text
                                                     textAlign={'center'}
                                                     color={useColorModeValue('gray.700', 'gray.400')}
-                                                    px={3}>
+                                                    px={3}
+                                                >
                                                     {bedroom.description}
                                                 </Text>
                                                 <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
@@ -137,10 +129,20 @@ export function Cards({ filter }: any) {
                                                     direction={'row'}
                                                     padding={2}
                                                     justifyContent={'space-between'}
-                                                    alignItems={'center'}>
+                                                    alignItems={'center'}
+                                                >
                                                     <IconButton
                                                         aria-label='favorites'
                                                         bg="#FAE5E5"
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        _hover={{
+                                                            bg: '#FAE5E9',
+                                                        }}
+                                                        _focus={{
+                                                            bg: '#FAE5E9',
+                                                        }}
                                                         onClick={() => {
                                                             api.post('/auth/favorites', { data: bedroom._id, tokens })
                                                                 .then(res => {
@@ -180,7 +182,7 @@ export function Cards({ filter }: any) {
                             )
                         })
                     }
-                </Grid>
+                </SimpleGrid>
             </Center>
         </>
     )
