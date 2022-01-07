@@ -2,11 +2,14 @@ import {
     Box,
     Button,
     Center,
+    Flex,
     FormControl,
     FormLabel,
+    HStack,
     Input,
     NumberInput,
     NumberInputField,
+    Stack,
     Text,
     useToast,
     VStack
@@ -54,91 +57,83 @@ const AccountInfo: NextPage = ({ data }: any) => {
 
     return (
         <>
-            <Center>
-                <Box
-                    h="calc(100vh - 124px)"
-                    w="100%"
-                    maxW="3xl"
-                >
-                    <VStack mx="5" w="100%">
-                        <Center>
-                            <Text fontSize='4xl' mt="24" textAlign="center">Definições de Conta</Text>
-                        </Center>
-                        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-                            <VStack>
-                                <FormControl>
-                                    <FormLabel>Nome</FormLabel>
-                                    <Input
-                                        defaultValue={name}
-                                        {...register("name")}
-                                        borderRadius="0"
-                                        type="text"
-                                        w="100%"
-                                        maxW="300px"
-                                    />
-                                </FormControl>
-                                <Center>
-                                    <FormControl>
-                                        <FormLabel>Email</FormLabel>
-                                        <Input
-                                            defaultValue={email}
-                                            {...register("email")}
-                                            borderRadius="0"
-                                            type="email"
-                                        />
-                                    </FormControl>
-                                </Center>
-                                <FormControl>
-                                    <FormLabel>Nif</FormLabel>
-                                    <NumberInput
-                                        defaultValue={nif}
-                                        borderRadius="0"
-                                    >
-                                        <NumberInputField
-                                            {...register("nif")}
-                                            pattern="[0-9]{9}"
-                                            borderRadius="0"
-                                        />
-                                    </NumberInput>
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Data de Nascimento</FormLabel>
-                                    <Input
-                                        // defaultValue={format(new Date(data.dateBirthday), 'yyyy-MM-dd')}
-                                        {...register("dateBirthday")}
-                                        type="date"
-                                        borderRadius="0"
-                                    />
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Telemóvel</FormLabel>
-                                    <NumberInput
-                                        defaultValue={phoneNumber}
-                                    >
-                                        <NumberInputField
-                                            {...register("phoneNumber")}
-                                            pattern="[0-9]{9}"
-                                            borderRadius="0"
-                                        />
-                                    </NumberInput>
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Morada</FormLabel>
-                                    <Input
-                                        defaultValue={address}
-                                        {...register("address")}
-                                        type="text"
-                                        borderRadius="0"
-                                    />
-                                </FormControl>
-                                <Center>
-                                    <Button type="submit" isLoading={isSubmitting} w="100%" maxW="500px">Alterar Dados</Button>
-                                </Center>
-                            </VStack>
-                        </form>
+            <Box
+                h="calc(100vh - 124px)"
+                w="100%"
+            >
+                <Center>
+                    <Text fontSize='4xl' mt="24" textAlign="center">Definições de Conta</Text>
+                </Center>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <VStack maxW="500px" mx="auto">
+                        <FormControl>
+                            <FormLabel>Nome</FormLabel>
+                            <Input
+                                defaultValue={name}
+                                {...register("name")}
+                                borderRadius="0"
+                                type="text"
+                                w="100%"
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Email</FormLabel>
+                            <Input
+                                defaultValue={email}
+                                {...register("email")}
+                                borderRadius="0"
+                                type="email"
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Nif</FormLabel>
+                            <NumberInput
+                                defaultValue={nif}
+                                borderRadius="0"
+                            >
+                                <NumberInputField
+                                    {...register("nif")}
+                                    pattern="[0-9]{9}"
+                                    borderRadius="0"
+                                />
+                            </NumberInput>
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Data de Nascimento</FormLabel>
+                            <Input
+                                defaultValue={format(new Date(data.dateBirthday), 'yyyy-MM-dd')}
+                                {...register("dateBirthday")}
+                                type="date"
+                                borderRadius="0"
+                                w="100%"
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Telemóvel</FormLabel>
+                            <NumberInput
+                                defaultValue={phoneNumber}
+                            >
+                                <NumberInputField
+                                    {...register("phoneNumber")}
+                                    pattern="[0-9]{9}"
+                                    borderRadius="0"
+                                />
+                            </NumberInput>
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Morada</FormLabel>
+                            <Input
+                                defaultValue={address}
+                                {...register("address")}
+                                type="text"
+                                borderRadius="0"
+                                w="100%"
+                            />
+                        </FormControl>
+                        <Button type="submit" isLoading={isSubmitting} w="100%" maxW="500px" borderRadius="0" bgColor="#C29A76" colorScheme="#C29A76">Alterar Dados</Button>
                     </VStack>
-                </Box>
-            </Center>
+                </form>
+            </Box>
         </>
     )
 }

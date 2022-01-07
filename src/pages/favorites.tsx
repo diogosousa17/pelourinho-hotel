@@ -1,4 +1,16 @@
-import { Badge, Button, Center, Flex, Heading, IconButton, Image, SimpleGrid, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+    Badge,
+    Button,
+    Center,
+    Flex,
+    Heading,
+    IconButton,
+    Image,
+    SimpleGrid,
+    Stack,
+    Text,
+    useColorModeValue
+} from "@chakra-ui/react";
 import { NextPage } from "next";
 import Link from "next/link";
 import { parseCookies } from "nookies";
@@ -45,7 +57,7 @@ const Favorites: NextPage = () => {
                     {
                         favorites.map((favorite: any) => (
                             <>
-                                <Center py={6}>
+                                <Center py={6} key={favorite.id}>
                                     <Stack
                                         borderWidth="1px"
                                         borderRadius="lg"

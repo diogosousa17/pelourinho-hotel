@@ -81,7 +81,7 @@ export function BedroomFilter({ filter }: any) {
                 wide ? (
                     <Center>
                         <HStack spacing='4' h="90" borderTop="1px" boxShadow="rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;" w="100%">
-                            <Text ml="24px" >Filtrar por:</Text>
+                            <Text ml="24px" >Ordenar por:</Text>
                             <Menu>
                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light">
                                     Preço
@@ -135,7 +135,7 @@ export function BedroomFilter({ filter }: any) {
                         <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
                             <DrawerOverlay />
                             <DrawerContent>
-                                <DrawerHeader borderBottomWidth='1px'>Filtrar por:</DrawerHeader>
+                                <DrawerHeader borderBottomWidth='1px'>Ordernar por:</DrawerHeader>
                                 <DrawerCloseButton />
                                 <DrawerBody>
                                     <Center>

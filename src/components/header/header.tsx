@@ -99,7 +99,7 @@ export function Header() {
                                             </Text>
                                         </Link>
                                         <Spacer />
-                                        <Link href="/" passHref>
+                                        <Link href="/contactUs" passHref>
                                             <Text as="a" cursor="pointer">
                                                 Contact Us
                                             </Text>
@@ -173,7 +173,7 @@ export function Header() {
                                                         </Text>
                                                     </Link>
                                                     <Spacer />
-                                                    <Link href="/" passHref>
+                                                    <Link href="/contactUs" passHref>
                                                         <Text as="a" cursor="pointer" pl="5">
                                                             Contact Us
                                                         </Text>
@@ -210,7 +210,7 @@ export function Header() {
                                                     </Text>
                                                 </Link>
                                                 <Spacer />
-                                                <Link href="/" passHref>
+                                                <Link href="/contactUs" passHref>
                                                     <Text as="a" cursor="pointer" pl="5">
                                                         Contact Us
                                                     </Text>

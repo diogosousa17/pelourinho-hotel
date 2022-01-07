@@ -10,14 +10,14 @@ import {
     Button,
     IconButton,
     SimpleGrid,
-    useBreakpointValue
 } from '@chakra-ui/react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from "react"
 import { api } from '../../services/api'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { parseCookies } from 'nookies'
+import { FavoriteButton } from '../favoriteButton/favoriteButton'
+import { AuthContext } from '../../contexts/AuthContext'
 
 type Bedroom = {
     _id: string,
@@ -32,8 +32,11 @@ type Bedroom = {
 export function Cards({ filter }: any) {
 
     const [bedrooms, setBedrooms] = useState([])
+    const [favorites, setFavorites] = useState<any>([])
+    const [isFavorite, setisFavorite] = useState(false)
     const { 'hotel.token': token }: any = parseCookies()
     const [tokens, setTokens] = useState('')
+    
 
     useEffect(() => {
         api.get('/auth/me', {
@@ -68,7 +71,7 @@ export function Cards({ filter }: any) {
                         bedrooms.map((bedroom: Bedroom) => {
                             return (
                                 <>
-                                    <Center py={6}>
+                                    <Center py={6} key={bedroom._id}>
                                         <Stack
                                             borderWidth="1px"
                                             borderRadius="lg"
@@ -104,6 +107,7 @@ export function Cards({ filter }: any) {
                                                     textAlign={'center'}
                                                     color={useColorModeValue('gray.700', 'gray.400')}
                                                     px={3}
+                                                    noOfLines={3}
                                                 >
                                                     {bedroom.description}
                                                 </Text>
@@ -131,29 +135,7 @@ export function Cards({ filter }: any) {
                                                     justifyContent={'space-between'}
                                                     alignItems={'center'}
                                                 >
-                                                    <IconButton
-                                                        aria-label='favorites'
-                                                        bg="#FAE5E5"
-                                                        boxShadow={
-                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-                                                        }
-                                                        _hover={{
-                                                            bg: '#FAE5E9',
-                                                        }}
-                                                        _focus={{
-                                                            bg: '#FAE5E9',
-                                                        }}
-                                                        onClick={() => {
-                                                            api.post('/auth/favorites', { data: bedroom._id, tokens })
-                                                                .then(res => {
-                                                                    console.log(res)
-                                                                }).catch(err => {
-                                                                    console.log(err)
-                                                                })
-                                                        }}
-                                                    >
-                                                        <AiOutlineHeart />
-                                                    </IconButton>
+                                                    <FavoriteButton bedroomId={bedroom._id} tokens={tokens} />
                                                     <Link href={"/bedroom/" + bedroom._id} passHref>
                                                         <Button
                                                             flex={1}
@@ -187,4 +169,3 @@ export function Cards({ filter }: any) {
         </>
     )
 }
-

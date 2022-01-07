@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import { api } from '../services/api'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
-import { useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
 type User = {
@@ -14,7 +13,8 @@ type User = {
     dateBirthday: Date,
     phoneNumber: number,
     address: string,
-    userType: string
+    userType: string,
+    favorites: any
 }
 
 type SignInData = {
@@ -33,7 +33,6 @@ export const AuthContext = createContext({} as AuthContextType)
 
 export function AuthProvider({ children }: any) {
 
-    const toast = useToast()
     const [user, setUser] = useState<User | null>(null)
     const router = useRouter()
 
@@ -48,8 +47,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': token
                 }
             }).then(response => {
-                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType } = response.data.decoded
-                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType })
+                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType, favorites } = response.data.decoded
+                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType, favorites })
             })
         }
 
@@ -71,8 +70,8 @@ export function AuthProvider({ children }: any) {
                     'authorization': response.data.token
                 }
             }).then(response => {
-                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType } = response.data.decoded
-                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType })
+                const { id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType, favorites } = response.data.decoded
+                setUser({ id, username, email, name, avatar, nif, dateBirthday, address, phoneNumber, userType, favorites })
             })
         } catch (err) {
             console.log(err)
