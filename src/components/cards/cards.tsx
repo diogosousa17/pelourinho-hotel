@@ -8,13 +8,11 @@ import {
     Heading,
     Badge,
     Button,
-    IconButton,
     SimpleGrid,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from "react"
 import { api } from '../../services/api'
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { parseCookies } from 'nookies'
 import { FavoriteButton } from '../favoriteButton/favoriteButton'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -32,21 +30,22 @@ type Bedroom = {
 export function Cards({ filter }: any) {
 
     const [bedrooms, setBedrooms] = useState([])
-    const [favorites, setFavorites] = useState<any>([])
-    const [isFavorite, setisFavorite] = useState(false)
     const { 'hotel.token': token }: any = parseCookies()
     const [tokens, setTokens] = useState('')
-    
+    const { isAuthnticated } = useContext(AuthContext)
+
 
     useEffect(() => {
-        api.get('/auth/me', {
-            headers: {
-                'authorization': token
-            }
-        })
-            .then(res => {
-                setTokens(res.data.decoded.id)
+        if (isAuthnticated) {
+            api.get('/auth/me', {
+                headers: {
+                    'authorization': token
+                }
             })
+                .then(res => {
+                    setTokens(res.data.decoded.id)
+                })
+        }
 
         api.get("/bedrooms/bedroom", {
             params: filter
@@ -135,7 +134,14 @@ export function Cards({ filter }: any) {
                                                     justifyContent={'space-between'}
                                                     alignItems={'center'}
                                                 >
-                                                    <FavoriteButton bedroomId={bedroom._id} tokens={tokens} />
+                                                    {
+                                                        isAuthnticated ? (
+                                                            <FavoriteButton bedroomId={bedroom._id} tokens={tokens} />
+                                                        ) : (
+                                                            <>
+                                                            </>
+                                                        )
+                                                    }
                                                     <Link href={"/bedroom/" + bedroom._id} passHref>
                                                         <Button
                                                             flex={1}
@@ -153,7 +159,7 @@ export function Cards({ filter }: any) {
                                                                 bg: '#C29B80',
                                                             }}
                                                         >
-                                                            Ver Mais
+                                                            SEE MORE
                                                         </Button>
                                                     </Link>
                                                 </Stack>

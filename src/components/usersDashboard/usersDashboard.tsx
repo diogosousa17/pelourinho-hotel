@@ -7,6 +7,7 @@ import {
     Text,
     VStack
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from 'react-icons/ri'
@@ -16,6 +17,7 @@ import { Sidebar } from "../sidebar/sidebar";
 
 export function UsersDashboard() {
 
+    const router = useRouter()
     const [users, setUsers] = useState([])
     const secretKey = "superscret"
 
@@ -67,7 +69,7 @@ export function UsersDashboard() {
                                             <IconButton
                                                 aria-label='Delete User'
                                                 icon={<RiDeleteBin5Line />}
-                                                onClick={() => { api.delete(`/auth/user/${user._id}`) }}
+                                                onClick={() => { api.delete(`/auth/user/${user._id}`).then(res => { router.reload() }) }}
                                             />
                                         </VStack>
                                     </HStack>

@@ -13,14 +13,16 @@ import {
 } from "@chakra-ui/react";
 import { NextPage } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { api } from "../services/api";
 
 
 const Favorites: NextPage = () => {
 
+    const router = useRouter()
     const [favorites, setFavorites] = useState([])
     const [tokens, setTokens] = useState<any>('')
     const { 'hotel.token': token }: any = parseCookies()
@@ -124,15 +126,15 @@ const Favorites: NextPage = () => {
                                                     aria-label='favorites'
                                                     bg="#FAE5E5"
                                                     onClick={() => {
-                                                        api.post('/auth/favorites', { data: favorite._id, tokens })
+                                                        api.delete('/auth/favorites', { headers: { "bedroomId": favorite._id, "userId": tokens.decoded.id } })
                                                             .then(res => {
-                                                                console.log(res)
+                                                                router.reload()
                                                             }).catch(err => {
                                                                 console.log(err)
                                                             })
                                                     }}
                                                 >
-                                                    <AiOutlineHeart />
+                                                    <AiFillHeart />
                                                 </IconButton>
                                                 <Link href={"/bedroom/" + favorite._id} passHref>
                                                     <Button

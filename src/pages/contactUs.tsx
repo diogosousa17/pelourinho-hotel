@@ -24,13 +24,13 @@ import { NextPage } from 'next'
 
 const confetti = {
   light: {
-    primary: '4299E1', // blue.400
-    secondary: 'BEE3F8', // blue.100
+    primary: 'C29A76', // blue.400
+    secondary: 'C29A76', // blue.100
   },
 
   dark: {
-    primary: '1A365D', // blue.900
-    secondary: '2A4365', // blue.800
+    primary: 'C29A76', // blue.900
+    secondary: 'C29A76', // blue.800
   },
 };
 
@@ -84,7 +84,7 @@ const ContactUs: NextPage = () => {
                       fontSize="3xl"
                       icon={<MdEmail />}
                       _hover={{
-                        bg: 'blue.500',
+                        bg: '#C29A76',
                         color: useColorModeValue('white', 'gray.700'),
                       }}
                       onClick={onCopy}
@@ -100,7 +100,7 @@ const ContactUs: NextPage = () => {
                       fontSize="3xl"
                       icon={<BsGithub />}
                       _hover={{
-                        bg: 'blue.500',
+                        bg: '#C29A76',
                         color: useColorModeValue('white', 'gray.700'),
                       }}
                       isRound
@@ -114,7 +114,7 @@ const ContactUs: NextPage = () => {
                       size="lg"
                       icon={<BsTwitter size="28px" />}
                       _hover={{
-                        bg: 'blue.500',
+                        bg: '#C29A76',
                         color: useColorModeValue('white', 'gray.700'),
                       }}
                       isRound
@@ -128,7 +128,7 @@ const ContactUs: NextPage = () => {
                       size="lg"
                       icon={<BsLinkedin size="28px" />}
                       _hover={{
-                        bg: 'blue.500',
+                        bg: '#C29A76',
                         color: useColorModeValue('white', 'gray.700'),
                       }}
                       isRound
@@ -148,7 +148,7 @@ const ContactUs: NextPage = () => {
 
                       <InputGroup>
                         <InputLeftElement children={<BsPerson />} />
-                        <Input type="text" name="name" placeholder="Your Name" />
+                        <Input type="text" name="name" placeholder="Your Name" borderRadius={"0"} />
                       </InputGroup>
                     </FormControl>
 
@@ -161,6 +161,7 @@ const ContactUs: NextPage = () => {
                           type="email"
                           name="email"
                           placeholder="Your Email"
+                          borderRadius={"0"}
                         />
                       </InputGroup>
                     </FormControl>
@@ -173,6 +174,7 @@ const ContactUs: NextPage = () => {
                         placeholder="Your Message"
                         rows={6}
                         resize="none"
+                        borderRadius={"0"}
                       />
                     </FormControl>
 
@@ -180,6 +182,7 @@ const ContactUs: NextPage = () => {
                       colorScheme="#C29A76"
                       bg="#C29A76"
                       color="white"
+                      borderRadius={"0"}
                       _hover={{
                         bg: '#C29A76',
                       }}

@@ -5,14 +5,15 @@ import { MdDriveFileRenameOutline } from "react-icons/md"
 import { api } from "../../services/api"
 import { useForm } from "react-hook-form"
 import { Sidebar } from "../sidebar/sidebar"
+import { useRouter } from "next/router"
 
 
 export function BedroomsDashboard() {
 
+    const router = useRouter()
     const [bedrooms, setBedrooms] = useState<any>([])
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
-    console.log(bedrooms.bedroomName)
 
     useEffect(() => {
         api.get("/bedrooms/bedroom", {
@@ -74,7 +75,7 @@ export function BedroomsDashboard() {
                                             <IconButton
                                                 aria-label='Delete Bedroom'
                                                 icon={<RiDeleteBin5Line />}
-                                                onClick={() => { api.delete(`/bedrooms/bedroom/${bedroom._id}`) }}
+                                                onClick={() => { api.delete(`/bedrooms/bedroom/${bedroom._id}`).then(res => { router.reload() }) }}
                                             />
                                         </HStack>
                                     </HStack>

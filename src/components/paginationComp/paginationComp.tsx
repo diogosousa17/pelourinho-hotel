@@ -22,7 +22,7 @@ export function PaginationComp({ page }: any) {
 
     return (
         <>
-            <Center h="200px">
+            <Center my="10px">
                 <HStack h="100%" align="flex-end">
                     <Button onClick={previousPage}>Página Anterior</Button>
                     <Button onClick={nextPage}>Próxima Página</Button>

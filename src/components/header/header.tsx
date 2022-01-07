@@ -22,6 +22,7 @@ import {
     MenuItem,
     Portal,
     VStack,
+    HStack,
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import Link from 'next/link'
@@ -29,6 +30,7 @@ import { LoginButton } from '../loginButton/loginButton'
 import { RegisterButton } from '../registerButton/registerButton'
 import { FiMenu, FiChevronDown, FiSettings, FiLogOut } from 'react-icons/fi'
 import { AuthContext } from '../../contexts/AuthContext'
+import { AiFillHeart } from "react-icons/ai"
 
 import { useRouter } from 'next/router'
 
@@ -93,7 +95,7 @@ export function Header() {
                                             </Text>
                                         </Link>
                                         <Spacer />
-                                        <Link href="/" passHref>
+                                        <Link href="/aboutUs" passHref>
                                             <Text as="a" cursor="pointer">
                                                 About Us
                                             </Text>
@@ -113,12 +115,29 @@ export function Header() {
                                                 <Flex align="center" justify="space-between" w="100%">
                                                     <Flex align="center">
                                                         <Avatar name={user.username} />
-                                                        <Text>{user.username}</Text>
+                                                        <Text mx="10px">{user.username}</Text>
                                                     </Flex>
-                                                    <Flex>
-                                                        <Text><FiSettings size={25} /></Text>
-                                                        <Box as="button" onClick={signOut} ml="10px"><FiLogOut size={25} /></Box>
-                                                    </Flex>
+                                                    <HStack>
+                                                        <Box
+                                                            as={"button"}
+                                                            onClick={() => router.push(`/accountInfo/${user.id}`)}
+                                                        >
+                                                            <FiSettings size={25} />
+                                                        </Box>
+                                                        <Box
+                                                            as={"button"}
+                                                            onClick={() => router.push(`/favorites`)}
+                                                        >
+                                                            <AiFillHeart size={25} />
+                                                        </Box>
+                                                        <Box
+                                                            as="button"
+                                                            onClick={signOut}
+                                                            ml="10px"
+                                                        >
+                                                            <FiLogOut size={25} />
+                                                        </Box>
+                                                    </HStack>
                                                 </Flex>
                                             ) : (
                                                 <>
@@ -167,7 +186,7 @@ export function Header() {
                                                         </Text>
                                                     </Link>
                                                     <Spacer />
-                                                    <Link href="/" passHref>
+                                                    <Link href="/aboutUs" passHref>
                                                         <Text as="a" cursor="pointer" pl="5">
                                                             About Us
                                                         </Text>
@@ -204,7 +223,7 @@ export function Header() {
                                                     </Text>
                                                 </Link>
                                                 <Spacer />
-                                                <Link href="/" passHref>
+                                                <Link href="/aboutUs" passHref>
                                                     <Text as="a" cursor="pointer" pl="5">
                                                         About Us
                                                     </Text>

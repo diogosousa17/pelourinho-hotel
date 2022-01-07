@@ -13,17 +13,16 @@ const Bedrooms: NextPage = ({ query }: any) => {
             <Center>
                 <Flex
                     w="100%"
-                    maxW="1100px"
-                    h="50px"
                     fontSize="24px"
                     align="end"
                     fontWeight="bold"
+                    mx="10"
                 >
                     Quartos:
                 </Flex>
             </Center>
             <Cards filter={query} />
-            {/* <PaginationComp page={query} /> */}
+            <PaginationComp page={query} />
         </>
     )
 }

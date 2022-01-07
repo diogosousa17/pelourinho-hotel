@@ -2,6 +2,7 @@ import { Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, D
 import { useRouter } from 'next/router'
 import { FiChevronDown } from 'react-icons/fi'
 import { BiSort } from 'react-icons/bi'
+import { RiFilterFill, RiFilterOffFill } from 'react-icons/ri'
 
 export function BedroomFilter({ filter }: any) {
 
@@ -81,44 +82,44 @@ export function BedroomFilter({ filter }: any) {
                 wide ? (
                     <Center>
                         <HStack spacing='4' h="90" borderTop="1px" boxShadow="rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;" w="100%">
-                            <Text ml="24px" >Ordenar por:</Text>
+                            <Text ml="24px" >Order by:</Text>
                             <Menu>
                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light">
-                                    Preço
+                                    Price
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem onClick={orderByPrice} value="asc">Ascendente</MenuItem>
-                                    <MenuItem onClick={orderByPrice} value="desc">Descendente</MenuItem>
+                                    <MenuItem onClick={orderByPrice} value="asc">Ascending</MenuItem>
+                                    <MenuItem onClick={orderByPrice} value="desc">Descending</MenuItem>
                                 </MenuList>
                             </Menu>
                             <Menu>
                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light">
-                                    Nome
+                                    Name
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem onClick={orderByName} value="asc">Ascendente</MenuItem>
-                                    <MenuItem onClick={orderByName} value="desc">Descendente</MenuItem>
+                                    <MenuItem onClick={orderByName} value="asc">Ascending</MenuItem>
+                                    <MenuItem onClick={orderByName} value="desc">Descending</MenuItem>
                                 </MenuList>
                             </Menu>
                             <Menu>
                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light">
-                                    Nrº Camas
+                                    Beds Number
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem onClick={orderByBeds} value="asc">Ascendente</MenuItem>
-                                    <MenuItem onClick={orderByBeds} value="desc">Descendente</MenuItem>
+                                    <MenuItem onClick={orderByBeds} value="asc">Ascending</MenuItem>
+                                    <MenuItem onClick={orderByBeds} value="desc">Descending</MenuItem>
                                 </MenuList>
                             </Menu>
                             <Menu>
                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light">
-                                    Nrº Pessoas
+                                    Capacity
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem onClick={orderByPeople} value="asc">Ascendente</MenuItem>
-                                    <MenuItem onClick={orderByPeople} value="desc">Descendente</MenuItem>
+                                    <MenuItem onClick={orderByPeople} value="asc">Ascending</MenuItem>
+                                    <MenuItem onClick={orderByPeople} value="desc">Descending</MenuItem>
                                 </MenuList>
                             </Menu>
-                            <Button onClick={deleteFilters}>Remover filtros</Button>
+                            <Button onClick={deleteFilters} borderRadius={"0"} bg="#C29A76" colorScheme={"#C29A76"}><RiFilterOffFill /></Button>
                         </HStack>
                     </Center>
                 ) : (
@@ -129,8 +130,10 @@ export function BedroomFilter({ filter }: any) {
                             mx="5px"
                             my="5px"
                             borderRadius={"0"}
+                            bg="#C29A76"
+                            colorScheme={"#C29A76"}
                         >
-                            <BiSort />
+                            <RiFilterFill />
                         </IconButton>
                         <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
                             <DrawerOverlay />
@@ -176,7 +179,7 @@ export function BedroomFilter({ filter }: any) {
                                                     <MenuItem onClick={orderByPeople} value="desc">Descendente</MenuItem>
                                                 </MenuList>
                                             </Menu>
-                                            <Button onClick={deleteFilters}  w="100%" maxW="150px" borderRadius={"0"}>Remover filtros</Button>
+                                            <Button onClick={deleteFilters} w="100%" maxW="150px" borderRadius={"0"} bg="#C29A76" colorScheme={"#C29A76"}><RiFilterOffFill /></Button>
                                         </VStack>
                                     </Center>
                                 </DrawerBody>
