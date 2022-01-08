@@ -23,6 +23,8 @@ import { useRouter } from 'next/router';
 import { UsersDashboard } from '../usersDashboard/usersDashboard'
 import { BedroomsDashboard } from '../bedroomsDashboard/bedroomsDashboard';
 import { CreateBedrooms } from '../createBedroom/createBedrooms';
+import { RiUserAddLine } from 'react-icons/ri';
+import { BsPlusCircle } from 'react-icons/bs';
 
 export function Sidebar({ children }: any) {
 
@@ -84,14 +86,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                     </Text>
                     <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
                 </Flex>
-                <VStack>
+                <VStack align="flex-start" mx="35px">
                     <Flex
                         align="center"
                         as="button"
                         onClick={() => { router.push('/dashboard/users') }}
                     >
                         <Icon as={FiUsers} />
-                        <Text mx="10px">Utilizadores</Text>
+                        <Text mx="10px">Users</Text>
                     </Flex>
                     <Flex
                         align="center"
@@ -99,23 +101,23 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                         onClick={() => { router.push('/dashboard/bedrooms') }}
                     >
                         <MdOutlineBedroomParent />
-                        <Text mx="10px">Quartos</Text>
+                        <Text mx="10px">Bedrooms</Text>
                     </Flex>
                     <Flex
                         align="center"
                         as="button"
                         onClick={() => { router.push('/dashboard/createBedroom') }}
                     >
-                        <MdOutlineBedroomParent />
-                        <Text mx="10px">Criar Quarto</Text>
+                        <BsPlusCircle />
+                        <Text mx="10px">Create Bedroom</Text>
                     </Flex>
                     <Flex
                         align="center"
                         as="button"
                         onClick={() => { router.push('/dashboard/createUser') }}
                     >
-                        <MdOutlineBedroomParent />
-                        <Text mx="10px">Criar Utilizador</Text>
+                        <RiUserAddLine />
+                        <Text mx="10px">Create User</Text>
                     </Flex>
                 </VStack>
             </Box>

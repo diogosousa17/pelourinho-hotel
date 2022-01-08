@@ -100,7 +100,7 @@ export function Cards({ filter }: any) {
                                                     {bedroom.bedroomName}
                                                 </Heading>
                                                 <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-                                                    {bedroom.price}€
+                                                    {bedroom.price}€/night
                                                 </Text>
                                                 <Text
                                                     textAlign={'center'}
@@ -116,14 +116,14 @@ export function Cards({ filter }: any) {
                                                         py={1}
                                                         bg={useColorModeValue('gray.50', 'gray.800')}
                                                         fontWeight={'400'}>
-                                                        {bedroom.capacity} pessoa(s)
+                                                        {bedroom.capacity} peolple
                                                     </Badge>
                                                     <Badge
                                                         px={2}
                                                         py={1}
                                                         bg={useColorModeValue('gray.50', 'gray.800')}
                                                         fontWeight={'400'}>
-                                                        {bedroom.bedsNumber} cama(s)
+                                                        {bedroom.bedsNumber} beds
                                                     </Badge>
                                                 </Stack>
                                                 <Stack

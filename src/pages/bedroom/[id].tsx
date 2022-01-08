@@ -65,24 +65,35 @@ const Bedroom: NextPage = ({ data }: any) => {
             guestsNumber: data.guestsNumber,
             finalPrice: priceFinal
         }
-        await api.put(`/auth/user/${user.id}`, createReserve)
-            .then(res => {
-                console.log(res)
-                toast({
-                    position: 'top-start',
-                    isClosable: true,
-                    title: 'Dados alterados com sucesso!',
-                    status: 'success',
-                })
+        if (priceFinal <= 0) {
+            toast({
+                position: 'top-start',
+                isClosable: true,
+                title: 'Price equal or below 0,',
+                status: 'warning',
+                description: 'Pelase choose another date.'
             })
-            .catch(err => {
-                toast({
-                    position: 'top-start',
-                    isClosable: true,
-                    title: 'Erro ao alterar dados. Tente novamente mais tarde.',
-                    status: 'error',
+        } else {
+            await api.put(`/auth/user/${user.id}`, createReserve)
+                .then(res => {
+                    console.log(res)
+                    toast({
+                        position: 'top-start',
+                        isClosable: true,
+                        title: 'Reservation made successfully!',
+                        status: 'success',
+                    })
                 })
-            })
+                .catch(err => {
+                    toast({
+                        position: 'top-start',
+                        isClosable: true,
+                        title: 'Error Bokking,',
+                        status: 'error',
+                        description: 'Pelase try again later.'
+                    })
+                })
+        }
     }
 
     return (
@@ -117,7 +128,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     color={useColorModeValue('gray.900', 'gray.400')}
                                     fontWeight={300}
                                     fontSize={'2xl'}>
-                                    {price}€/noite
+                                    {price}€/night
                                 </Text>
                             </Box>
 
@@ -141,7 +152,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                         fontWeight={'500'}
                                         textTransform={'uppercase'}
                                         mb={'4'}>
-                                        características
+                                        characteristics
                                     </Text>
 
                                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
@@ -164,25 +175,25 @@ const Bedroom: NextPage = ({ data }: any) => {
                                         fontWeight={'500'}
                                         textTransform={'uppercase'}
                                         mb={'4'}>
-                                        Detalhes do Quarto
+                                        Bedroom Details
                                     </Text>
 
                                     <List spacing={2}>
                                         <ListItem>
                                             <Text as={'span'} fontWeight={'bold'}>
-                                                Tipo de Quarto:
+                                                Bedroom Type:
                                             </Text>{' '}
                                             {bedroomType}
                                         </ListItem>
                                         <ListItem>
                                             <Text as={'span'} fontWeight={'bold'}>
-                                                Capacidade:
+                                                Capacity:
                                             </Text>{' '}
-                                            {capacity} pessoa(s)
+                                            {capacity} people
                                         </ListItem>
                                         <ListItem>
                                             <Text as={'span'} fontWeight={'bold'}>
-                                                Número de Camas:
+                                                Beds Number:
                                             </Text>{' '}
                                             {bedsNumber}
                                         </ListItem>
@@ -205,7 +216,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                 }}
                                 onClick={onOpen}
                             >
-                                Reservar
+                                book now
                             </Button>
                         </Stack>
                     </SimpleGrid>
@@ -216,26 +227,26 @@ const Bedroom: NextPage = ({ data }: any) => {
                 >
                     <ModalOverlay />
                     <ModalContent>
-                        <ModalHeader>Reservar Quarto</ModalHeader>
+                        <ModalHeader>BOOK ROOM</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody pb={6}>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <FormControl>
-                                    <FormLabel>Número do Quarto</FormLabel>
+                                    <FormLabel>Bedroom Number</FormLabel>
                                     <Input
                                         value={bedroomNumber}
                                         {...register("bedroomNumber")}
                                     />
                                 </FormControl>
                                 <FormControl mt={4}>
-                                    <FormLabel>Tipo de Quarto</FormLabel>
+                                    <FormLabel>Bedroom Type</FormLabel>
                                     <Input
                                         value={bedroomType}
                                         {...register("bedroomType")}
                                     />
                                 </FormControl>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>De</FormLabel>
+                                    <FormLabel>From</FormLabel>
                                     <Input
                                         type="date"
                                         {...register("from")}
@@ -244,7 +255,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     />
                                 </FormControl>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Até</FormLabel>
+                                    <FormLabel>To</FormLabel>
                                     <Input
                                         type="date"
                                         {...register("to")}
@@ -253,7 +264,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     />
                                 </FormControl>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Número de Pessoas</FormLabel>
+                                    <FormLabel>Number of People</FormLabel>
                                     <NumberInput
                                         defaultValue={1}
                                         min={1}
@@ -270,7 +281,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     </NumberInput>
                                 </FormControl>
                                 <FormControl mt={4} isRequired>
-                                    <FormLabel>Número de Noites</FormLabel>
+                                    <FormLabel>Number of Nights</FormLabel>
                                     <NumberInput
                                         min={1}
                                         isRequired
@@ -283,20 +294,20 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     </NumberInput>
                                 </FormControl>
                                 <FormControl mt={4}>
-                                    <FormLabel>Preço Final</FormLabel>
+                                    <FormLabel>Final Price</FormLabel>
                                     <Input
                                         type="number"
                                         {...register("priceFinal")}
                                         value={priceFinal}
                                     />
                                 </FormControl>
-                                <Button colorScheme='blue' mr={3} type="submit" isLoading={isSubmitting}>
-                                    Reservar Quarto
+                                <Button colorScheme='#C29A76' mr={3} type="submit" isLoading={isSubmitting} mt="10px" bg={"#C29A76"} borderRadius={"0"}>
+                                    BOOK
                                 </Button>
                             </form>
                         </ModalBody>
                         <ModalFooter>
-                            <Button onClick={onClose}>Cancelar</Button>
+                            <Button onClick={onClose} borderRadius={"0"}>CANCEL</Button>
                         </ModalFooter>
                     </ModalContent>
                 </Modal>
