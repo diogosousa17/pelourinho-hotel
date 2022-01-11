@@ -15,9 +15,8 @@ const PasswordReset: NextPage = ({ params }: any) => {
             password: data.password
         }
 
-        await api.post(`/resetPassword/auth/${id}/${token}`, password)
+        await api.post(`/auth/resetPassword/${id}/${token}`, password)
             .then(res => {
-                console.log(res)
                 toast({
                     position: 'top-start',
                     isClosable: true,
