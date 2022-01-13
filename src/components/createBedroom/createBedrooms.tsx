@@ -1,4 +1,20 @@
-import { Box, Center, Flex, Input, Menu, MenuButton, MenuDivider, MenuItemOption, MenuList, MenuOptionGroup, Select, Text, VStack, Button, Textarea, useToast } from '@chakra-ui/react'
+import {
+    Box,
+    Center,
+    Flex,
+    Input,
+    Menu,
+    MenuButton,
+    MenuItemOption,
+    MenuList,
+    MenuOptionGroup,
+    Select,
+    Text,
+    VStack,
+    Button,
+    Textarea,
+    useToast
+} from '@chakra-ui/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
@@ -31,14 +47,14 @@ export function CreateBedrooms() {
                     toast({
                         position: 'top-start',
                         isClosable: true,
-                        title: 'Quarto criado com sucesso!',
+                        title: 'Bedroom created!',
                         status: 'success',
                     })
                 }).catch(err => {
                     toast({
                         position: 'top-start',
                         isClosable: true,
-                        title: 'Erro ao criar quarto. Tente novamente mais tarde.',
+                        title: 'Error creating bedroom. Try again later.',
                         status: 'error',
                     })
                     console.log(err)
@@ -51,14 +67,14 @@ export function CreateBedrooms() {
             <Flex>
                 <Sidebar />
                 <Box overflowY="scroll" w="1648px" h="calc(100vh - 124px)" display="flex" flexDirection="column" justifyContent="center">
-                    <Text textAlign="center" fontSize="4xl">Criar Quarto</Text>
+                    <Text textAlign="center" fontSize="4xl">Create Bedroom</Text>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Center>
                             <VStack w="100%">
                                 <Input
                                     w="100%"
                                     maxW="300px"
-                                    placeholder="Número"
+                                    placeholder="Number"
                                     borderRadius="0"
                                     {...register("bedroomNumber")}
                                 />
@@ -72,7 +88,7 @@ export function CreateBedrooms() {
                                 <Textarea
                                     w="100%"
                                     maxW="300px"
-                                    placeholder='Descrição'
+                                    placeholder='Description'
                                     borderRadius="0"
                                     {...register("description")}
                                 />
@@ -83,7 +99,7 @@ export function CreateBedrooms() {
                                 </Select>
                                 <Menu closeOnSelect={false}>
                                     <MenuButton as={Button} w="100%" maxW="300px" borderRadius="0">
-                                        Características
+                                        Characteristics
                                     </MenuButton>
                                     <MenuList minWidth='300px'>
                                         <MenuOptionGroup type='checkbox' onChange={(e: any) => { setcharacteristics(e); }}>
@@ -101,33 +117,32 @@ export function CreateBedrooms() {
                                 <Input
                                     w="100%"
                                     maxW="300px"
-                                    placeholder='Número de Camas'
+                                    placeholder='Beds Number'
                                     borderRadius="0"
                                     {...register("bedsNumber")}
                                 />
                                 <Input
                                     w="100%"
                                     maxW="300px"
-                                    placeholder='Capacidade'
+                                    placeholder='Capacity'
                                     borderRadius="0"
                                     {...register("capacity")}
                                 />
                                 <Input
                                     w="100%"
                                     maxW="300px"
-                                    placeholder='Preço'
+                                    placeholder='Price'
                                     borderRadius="0"
                                     {...register("price")}
                                 />
                                 <Input
                                     w="100%"
                                     maxW="300px"
-                                    placeholder='Preço'
                                     borderRadius="0"
                                     type="file"
                                     {...register("images")}
                                 />
-                                <Button type="submit" w="100%" maxW="300px" isLoading={isSubmitting} borderRadius="0" bgColor="#C29A76">CRIAR</Button>
+                                <Button type="submit" w="100%" maxW="300px" isLoading={isSubmitting} borderRadius="0" bgColor="#C29A76">CREATE</Button>
                             </VStack>
                         </Center>
                     </form>

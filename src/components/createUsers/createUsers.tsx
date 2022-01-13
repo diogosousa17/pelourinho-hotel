@@ -41,7 +41,7 @@ export function CreateUsers() {
             <Flex>
                 <Sidebar />
                 <Box overflowY="scroll" w="1648px" h="calc(100vh - 124px)" display="flex" flexDirection="column" justifyContent="center">
-                    <Text textAlign="center" fontSize="4xl">Criar Utilizador</Text>
+                    <Text textAlign="center" fontSize="4xl">Create user</Text>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Center>
                             <VStack w="100%">
@@ -55,7 +55,7 @@ export function CreateUsers() {
                                 <Input
                                     w="100%"
                                     maxW="300px"
-                                    placeholder='Nome'
+                                    placeholder='Name'
                                     borderRadius="0"
                                     {...register("name")}
                                 />
@@ -75,7 +75,7 @@ export function CreateUsers() {
                                     {...register("password")}
                                 />
                                 <Select w="100%" maxW="300px" {...register("userType")} borderRadius="0">
-                                    <option value="publico">Público</option>
+                                    <option value="publico">Public</option>
                                     <option value="admin">Admin</option>
                                 </Select>
                                 <Button type="submit" w="100%" maxW="300px" isLoading={isSubmitting} borderRadius="0" bgColor="#C29A76">CRIAR</Button>

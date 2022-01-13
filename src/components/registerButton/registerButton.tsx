@@ -109,7 +109,7 @@ export function RegisterButton() {
                                         fontWeight='bold'
                                         textAlign="center"
                                     >
-                                        Registo
+                                        Register
                                     </Text>
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <Input
@@ -131,7 +131,7 @@ export function RegisterButton() {
                                             bgColor="#FFFF"
                                             type="text"
                                             borderRadius="0"
-                                            placeholder="Primeiro e Último Nome"
+                                            placeholder="Name"
                                             border="0px"
                                             {...register("name")}
                                             mb="10px"
@@ -180,7 +180,7 @@ export function RegisterButton() {
                                             bgColor="#FFFF"
                                             type="password"
                                             borderRadius="0"
-                                            placeholder="Palavra-Passe"
+                                            placeholder="Password"
                                             border="0px"
                                             {...register("password")}
                                             mb="10px"
@@ -201,7 +201,7 @@ export function RegisterButton() {
                                                 type="submit"
                                                 isLoading={isSubmitting}
                                             >
-                                                Criar conta
+                                                CREATE
                                             </Button>
                                         </Center>
                                     </form>

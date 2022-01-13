@@ -121,14 +121,14 @@ export function LoginButton() {
                                             type="submit"
                                             isLoading={isSubmitting}
                                         >
-                                            Entrar
+                                            LOGIN
                                         </Button>
                                     </Center>
                                 </form>
                                 <Center>
                                     <Link href="/resetPassword" passHref>
                                         <Box as="a" onClick={handleClose}>
-                                            <Text textAlign="center">Esqueceu-se da Palavra-Passe? Recuperar!</Text>
+                                            <Text textAlign="center">Forgot Password? Recover here!</Text>
                                         </Box>
                                     </Link>
                                 </Center>

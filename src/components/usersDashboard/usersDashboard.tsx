@@ -54,11 +54,11 @@ export function UsersDashboard() {
                                             <Text>{user.email}</Text>
                                         </VStack>
                                         <VStack align="flex-start">
-                                            <Text fontWeight="medium">MORADA</Text>
+                                            <Text fontWeight="medium">ADDRESS</Text>
                                             <Text>{user.address}</Text>
                                         </VStack>
                                         <VStack align="flex-start">
-                                            <Text fontWeight="medium">TELEMÓVEL</Text>
+                                            <Text fontWeight="medium">PHONE NUMBER</Text>
                                             <Text>{user.phoneNumber}</Text>
                                         </VStack>
                                         {/* <VStack align="flex-start">

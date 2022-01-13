@@ -81,6 +81,7 @@ export function AuthProvider({ children }: any) {
     function signOut() {
         destroyCookie(undefined, 'hotel.token')
         router.reload()
+        router.push('/')
     }
 
     return (

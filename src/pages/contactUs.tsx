@@ -16,11 +16,14 @@ import {
   useClipboard,
   useColorModeValue,
   VStack,
+  useToast
 } from '@chakra-ui/react';
 import React from 'react';
 import { BsGithub, BsLinkedin, BsPerson, BsTwitter } from 'react-icons/bs';
 import { MdEmail, MdOutlineEmail } from 'react-icons/md';
 import { NextPage } from 'next'
+import { useForm } from 'react-hook-form';
+import { api } from '../services/api';
 
 const confetti = {
   light: {
@@ -40,6 +43,32 @@ const CONFETTI_DARK = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 const ContactUs: NextPage = () => {
 
   const { hasCopied, onCopy } = useClipboard('pelourinhohotelspa@gmail.com');
+  const { register, handleSubmit, formState: { isSubmitting } } = useForm()
+  const toast = useToast()
+
+  const onSubmit = async (data: any) => {
+    const contact = {
+      name: data.name,
+      email: data.email,
+      message: data.message
+    }
+    await api.post('/auth/contactUs', contact)
+      .then(res => {
+        toast({
+          position: 'top-start',
+          isClosable: true,
+          title: 'Sent Successfully!',
+          status: 'success',
+        })
+      }).catch(err => {
+        toast({
+          position: 'top-start',
+          isClosable: true,
+          title: 'Error.',
+          status: 'error',
+        })
+      })
+  }
 
   return (
     <>
@@ -63,7 +92,7 @@ const ContactUs: NextPage = () => {
                   base: '4xl',
                   md: '5xl',
                 }}>
-                Envie-nos um Email!
+                Send Us An Email!
               </Heading>
 
               <Stack
@@ -142,54 +171,64 @@ const ContactUs: NextPage = () => {
                   p={8}
                   color={useColorModeValue('gray.700', 'whiteAlpha.900')}
                   shadow="base">
-                  <VStack spacing={5}>
-                    <FormControl isRequired>
-                      <FormLabel>Name</FormLabel>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <VStack spacing={5}>
+                      <FormControl isRequired>
+                        <FormLabel>Name</FormLabel>
 
-                      <InputGroup>
-                        <InputLeftElement children={<BsPerson />} />
-                        <Input type="text" name="name" placeholder="Your Name" borderRadius={"0"} />
-                      </InputGroup>
-                    </FormControl>
+                        <InputGroup>
+                          <InputLeftElement children={<BsPerson />} />
+                          <Input
+                            type="text"
+                            placeholder="Your Name"
+                            borderRadius={"0"}
+                            {...register("name")}
+                          />
+                        </InputGroup>
+                      </FormControl>
 
-                    <FormControl isRequired>
-                      <FormLabel>Email</FormLabel>
+                      <FormControl isRequired>
+                        <FormLabel>Email</FormLabel>
 
-                      <InputGroup>
-                        <InputLeftElement children={<MdOutlineEmail />} />
-                        <Input
-                          type="email"
-                          name="email"
-                          placeholder="Your Email"
+                        <InputGroup>
+                          <InputLeftElement children={<MdOutlineEmail />} />
+                          <Input
+                            type="email"
+                            placeholder="Your Email"
+                            borderRadius={"0"}
+                            {...register("email")}
+                          />
+                        </InputGroup>
+                      </FormControl>
+
+                      <FormControl isRequired>
+                        <FormLabel>Message</FormLabel>
+
+                        <Textarea
+                          placeholder="Your Message"
+                          rows={6}
+                          resize="none"
                           borderRadius={"0"}
+                          {...register("message")}
                         />
-                      </InputGroup>
-                    </FormControl>
+                      </FormControl>
 
-                    <FormControl isRequired>
-                      <FormLabel>Message</FormLabel>
-
-                      <Textarea
-                        name="message"
-                        placeholder="Your Message"
-                        rows={6}
-                        resize="none"
+                      <Button
+                        colorScheme="#C29A76"
+                        bg="#C29A76"
+                        color="white"
                         borderRadius={"0"}
-                      />
-                    </FormControl>
-
-                    <Button
-                      colorScheme="#C29A76"
-                      bg="#C29A76"
-                      color="white"
-                      borderRadius={"0"}
-                      _hover={{
-                        bg: '#C29A76',
-                      }}
-                      isFullWidth>
-                      Send Message
-                    </Button>
-                  </VStack>
+                        _hover={{
+                          bg: '#C29A76',
+                        }}
+                        isFullWidth
+                        type="submit"
+                        isLoading={isSubmitting}
+                      >
+                        Send Message
+                      </Button>
+                    </VStack>
+                  </form>
                 </Box>
               </Stack>
             </VStack>

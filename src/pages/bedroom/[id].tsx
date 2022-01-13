@@ -6,7 +6,6 @@ import {
     SimpleGrid,
     Button,
     ListItem,
-    useBreakpointValue,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -38,14 +37,16 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
 import { differenceInDays, format } from 'date-fns'
+import { useRouter } from "next/router"
 
 const Bedroom: NextPage = ({ data }: any) => {
 
     const toast = useToast()
+    const router = useRouter()
     const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType, imageURL } = data
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { user } = useContext(AuthContext)
+    const { user, isAuthnticated } = useContext(AuthContext)
     const [dateFrom, setDateFrom] = useState<any>(new Date())
     const [dateTo, setDateTo] = useState<any>(new Date())
 
@@ -54,6 +55,14 @@ const Bedroom: NextPage = ({ data }: any) => {
 
     const difference = (differenceInDays(dateToTest, dateFromTest))
     const priceFinal = price * difference
+
+    const disablePastDate = () => {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+        const yyyy = today.getFullYear();
+        return yyyy + "-" + mm + "-" + dd;
+    };
 
     const onSubmit = async (data: any) => {
         const createReserve = {
@@ -200,24 +209,52 @@ const Bedroom: NextPage = ({ data }: any) => {
                                     </List>
                                 </Box>
                             </Stack>
-
-                            <Button
-                                rounded={'none'}
-                                w={'full'}
-                                mt={8}
-                                size={'lg'}
-                                py={'7'}
-                                bg={'#C29A76'}
-                                color={useColorModeValue('white', 'gray.900')}
-                                textTransform={'uppercase'}
-                                _hover={{
-                                    transform: 'translateY(2px)',
-                                    boxShadow: 'lg',
-                                }}
-                                onClick={onOpen}
-                            >
-                                book now
-                            </Button>
+                            {
+                                isAuthnticated ? (
+                                    <Button
+                                        rounded={'none'}
+                                        w={'full'}
+                                        mt={8}
+                                        size={'lg'}
+                                        py={'7'}
+                                        bg={'#C29A76'}
+                                        color={useColorModeValue('white', 'gray.900')}
+                                        textTransform={'uppercase'}
+                                        _hover={{
+                                            transform: 'translateY(2px)',
+                                            boxShadow: 'lg',
+                                        }}
+                                        onClick={onOpen}
+                                    >
+                                        book now
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        rounded={'none'}
+                                        w={'full'}
+                                        mt={8}
+                                        size={'lg'}
+                                        py={'7'}
+                                        bg={'#C29A76'}
+                                        color={useColorModeValue('white', 'gray.900')}
+                                        textTransform={'uppercase'}
+                                        _hover={{
+                                            transform: 'translateY(2px)',
+                                            boxShadow: 'lg',
+                                        }}
+                                        onClick={() => {
+                                            toast({
+                                                position: 'top-start',
+                                                isClosable: true,
+                                                title: 'Please Login First!',
+                                                status: 'warning',
+                                            })
+                                        }}
+                                    >
+                                        book now
+                                    </Button>
+                                )
+                            }
                         </Stack>
                     </SimpleGrid>
                 </Container>
@@ -248,6 +285,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>From</FormLabel>
                                     <Input
+                                        min={disablePastDate()}
                                         type="date"
                                         {...register("from")}
                                         onChange={(e) => { setDateFrom(e.target.value) }}
@@ -257,6 +295,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                                 <FormControl mt={4} isRequired>
                                     <FormLabel>To</FormLabel>
                                     <Input
+                                        min={disablePastDate()}
                                         type="date"
                                         {...register("to")}
                                         onChange={(e) => { setDateTo(e.target.value) }}

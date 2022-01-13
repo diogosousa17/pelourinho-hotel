@@ -47,23 +47,23 @@ export function BedroomsDashboard() {
                                         />
                                         <Text fontSize="lg" fontWeight="bold">{bedroom.bedroomNumber}</Text>
                                         <VStack align="flex-start">
-                                            <Text fontWeight="medium">NOME</Text>
+                                            <Text fontWeight="medium">NAME</Text>
                                             <Text>{bedroom.bedroomName}</Text>
                                         </VStack>
                                         <VStack align="flex-start">
-                                            <Text fontWeight="medium">TIPO</Text>
+                                            <Text fontWeight="medium">TYPE</Text>
                                             <Text>{bedroom.bedroomType}</Text>
                                         </VStack>
                                         <VStack align="flex-start">
-                                            <Text fontWeight="medium">CAMAS</Text>
+                                            <Text fontWeight="medium">BEDS</Text>
                                             <Text>{bedroom.bedsNumber}</Text>
                                         </VStack>
                                         <VStack align="flex-start">
-                                            <Text fontWeight="medium">CAPACIDADE</Text>
-                                            <Text>{bedroom.capacity} Pessoas</Text>
+                                            <Text fontWeight="medium">CAPACITY</Text>
+                                            <Text>{bedroom.capacity} People</Text>
                                         </VStack>
                                         <VStack align="flex-start">
-                                            <Text fontWeight="medium">PREÇO</Text>
+                                            <Text fontWeight="medium">PRICE</Text>
                                             <Text>{bedroom.price}€</Text>
                                         </VStack>
                                         <HStack>
@@ -85,7 +85,7 @@ export function BedroomsDashboard() {
                         })
                     }
                 </Box>
-                <Modal
+                {/* <Modal
                     isOpen={isOpen}
                     onClose={onClose}
                 >
@@ -161,7 +161,7 @@ export function BedroomsDashboard() {
                             <Button onClick={onClose}>Cancelar</Button>
                         </ModalFooter>
                     </ModalContent>
-                </Modal>
+                </Modal> */}
             </Flex>
         </>
     )
