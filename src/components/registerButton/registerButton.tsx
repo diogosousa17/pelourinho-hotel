@@ -13,7 +13,6 @@ import {
     Flex,
     DrawerHeader,
     IconButton,
-    toast,
     useToast
 }
     from '@chakra-ui/react'
@@ -25,7 +24,7 @@ export function RegisterButton() {
 
     const toast = useToast()
 
-    const [size, setSize] = React.useState('full')
+    const [size, setSize] = React.useState('full') // Drawer full size from Chakra
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
 
@@ -47,7 +46,7 @@ export function RegisterButton() {
             dateBirthday: data.dateBirthday,
             nif: data.nif
         }
-        await api.post('/auth/register', newUser)
+        await api.post('/auth/register', newUser) // Register new user
             .then(res => {
                 toast({
                     position: 'top-start',

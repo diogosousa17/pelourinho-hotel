@@ -17,9 +17,9 @@ export function CreateUsers() {
             password: data.password,
             userType: data.userType
         }
-        await api.post('/auth/register', newUser)
+        await api.post('/auth/register', newUser) // Register new user
             .then(res => {
-                toast({
+                toast({ // Success toast to inform the user success
                     position: 'top-start',
                     isClosable: true,
                     title: 'Utilizador criado com sucesso!',
@@ -27,7 +27,7 @@ export function CreateUsers() {
                 })
             })
             .catch(err => {
-                toast({
+                toast({ // Error toast to inform the user error
                     position: 'top-start',
                     isClosable: true,
                     title: 'Erro ao criar utilizador. Tente novamente mais tarde.',

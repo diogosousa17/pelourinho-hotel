@@ -52,7 +52,7 @@ const ContactUs: NextPage = () => {
       email: data.email,
       message: data.message
     }
-    await api.post('/auth/contactUs', contact)
+    await api.post('/auth/contactUs', contact) // Post to API to send an email with messages from users
       .then(res => {
         toast({
           position: 'top-start',

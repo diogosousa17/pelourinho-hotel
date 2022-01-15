@@ -1,4 +1,10 @@
-import { Box, Button, Center, Flex, Input, Text, useToast, VStack } from "@chakra-ui/react";
+import {
+    Button,
+    Input,
+    Text,
+    useToast,
+    VStack
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 
@@ -13,24 +19,23 @@ export function ResetPass() {
             email: data.email
         }
 
-        await api.post('/auth/resetPassword', recover)
+        await api.post('/auth/resetPassword', recover) // Here we send the email with a link to recover password
             .then(res => {
-                console.log(res)
                 toast({
                     position: 'top-start',
                     isClosable: true,
                     title: 'Email enviado com sucesso!',
                     status: 'success',
                 })
-
+                console.log(res)
             }).catch(err => {
-                console.log(err)
                 toast({
                     position: 'top-start',
                     isClosable: true,
                     title: 'Erro ao enviar email. Tente novamente mais tarde.',
                     status: 'error',
                 })
+                console.log(err)
             })
     }
 

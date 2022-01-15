@@ -36,13 +36,13 @@ import { useRouter } from 'next/router'
 
 export function Header() {
 
-    const { user, isAuthnticated, signOut } = useContext(AuthContext)
+    const { user, isAuthnticated, signOut } = useContext(AuthContext) // Authentication hook from context
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure() // Chakra Drawer
 
-    const router = useRouter()
+    const router = useRouter() // Router from Next to navigate between pages
 
-    const wide = useBreakpointValue({
+    const wide = useBreakpointValue({ // We can make responsiveness with this from Chakra
         base: false,
         lg: true
     })
@@ -50,7 +50,7 @@ export function Header() {
     return (
         <>
             {
-                !wide ? (
+                !wide ? ( // If it's wide, show one thing, if not shows another
                     <>
                         <Flex w="100%" align="center" bgColor="#C29A76">
                             <Link href="/" passHref>
@@ -84,25 +84,25 @@ export function Header() {
                                 <DrawerBody>
                                     <Stack>
                                         <Link href="/" passHref>
-                                            <Text as="a" cursor="pointer">
+                                            <Text as="a" cursor="pointer" onClick={(() => onClose())}>
                                                 Home
                                             </Text>
                                         </Link>
                                         <Spacer />
                                         <Link href="/bedrooms" passHref>
-                                            <Text as="a" cursor="pointer">
+                                            <Text as="a" cursor="pointer" onClick={(() => onClose())}>
                                                 Bedrooms
                                             </Text>
                                         </Link>
                                         <Spacer />
                                         <Link href="/aboutUs" passHref>
-                                            <Text as="a" cursor="pointer">
+                                            <Text as="a" cursor="pointer" onClick={(() => onClose())}>
                                                 About Us
                                             </Text>
                                         </Link>
                                         <Spacer />
                                         <Link href="/contactUs" passHref>
-                                            <Text as="a" cursor="pointer">
+                                            <Text as="a" cursor="pointer" onClick={(() => onClose())}>
                                                 Contact Us
                                             </Text>
                                         </Link>
@@ -111,22 +111,28 @@ export function Header() {
                                 <DrawerFooter>
                                     <VStack w="100%">
                                         {
-                                            isAuthnticated ? (
+                                            isAuthnticated ? ( // If it's authenticated show one thing, if not shows another
                                                 <Flex align="center" justify="space-between" w="100%">
                                                     <Flex align="center">
-                                                        <Avatar name={user.username} />
-                                                        <Text mx="10px">{user.username}</Text>
+                                                        <Avatar name={user.name} />
+                                                        <Text mx="10px">{user.name}</Text>
                                                     </Flex>
                                                     <HStack>
                                                         <Box
                                                             as={"button"}
-                                                            onClick={() => router.push(`/accountInfo/${user.id}`)}
+                                                            onClick={() => {
+                                                                router.push(`/accountInfo/${user.id}`),
+                                                                    onClose()
+                                                            }}
                                                         >
                                                             <FiSettings size={25} />
                                                         </Box>
                                                         <Box
                                                             as={"button"}
-                                                            onClick={() => router.push(`/favorites`)}
+                                                            onClick={() => {
+                                                                router.push(`/favorites`),
+                                                                    onClose()
+                                                            }}
                                                         >
                                                             <AiFillHeart size={25} />
                                                         </Box>
@@ -246,7 +252,7 @@ export function Header() {
                                             <Menu>
                                                 <MenuButton borderRadius="lg">
                                                     <Flex align="center">
-                                                        <Text>{user.username}</Text>
+                                                        <Text>{user.name}</Text>
                                                         <Avatar m="6px" name={user.name} />
                                                         <FiChevronDown />
                                                     </Flex>

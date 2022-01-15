@@ -1,4 +1,10 @@
-import { Button, Input, Text, useToast, VStack } from "@chakra-ui/react";
+import {
+    Button,
+    Input,
+    Text,
+    useToast,
+    VStack
+} from "@chakra-ui/react";
 import { GetServerSideProps, NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { api } from "../../../services/api";
@@ -7,15 +13,15 @@ import { api } from "../../../services/api";
 const PasswordReset: NextPage = ({ params }: any) => {
 
     const toast = useToast()
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
-    const { id, token } = params
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm() // React Hook Forms
+    const { id, token } = params // User ID and token from props
 
     const onSubmit = async (data: any) => {
         const password = {
             password: data.password
         }
 
-        await api.post(`/auth/resetPassword/${id}/${token}`, password)
+        await api.post(`/auth/resetPassword/${id}/${token}`, password) // Post to API with the new password
             .then(res => {
                 toast({
                     position: 'top-start',
@@ -23,14 +29,15 @@ const PasswordReset: NextPage = ({ params }: any) => {
                     title: 'Password alterada com sucesso!',
                     status: 'success',
                 })
+                console.log(res)
             }).catch(err => {
-                console.log(err)
                 toast({
                     position: 'top-start',
                     isClosable: true,
                     title: 'Erro ao alterar password. Tente novamente mais tarde.',
                     status: 'error',
                 })
+                console.log(err)
             })
     }
 
@@ -59,6 +66,7 @@ export default PasswordReset
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
+    // Here we get the user id and a token that comes in the email link from recover password
     return {
         props: {
             params

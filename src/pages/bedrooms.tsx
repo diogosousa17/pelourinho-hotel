@@ -1,9 +1,11 @@
-import { Center, Flex } from '@chakra-ui/react'
+import { 
+    Center, 
+    Flex 
+} from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { BedroomFilter } from '../components/bedroomFilter/bedroomFilter'
 import { Cards } from '../components/cards/cards'
-import { PaginationComp } from '../components/paginationComp/paginationComp'
 
 const Bedrooms: NextPage = ({ query }: any) => {
 

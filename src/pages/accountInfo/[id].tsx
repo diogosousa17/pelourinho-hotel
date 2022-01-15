@@ -24,7 +24,7 @@ const AccountInfo: NextPage = ({ data }: any) => {
 
     const toast = useToast()
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
-    const { _id, name, email, nif, dateBirthday, phoneNumber, address } = data
+    const { _id, name, email, nif, dateBirthday, phoneNumber, address } = data // Here we get the info of the user from props
 
 
     const onSubmit = async (data: any) => {
@@ -36,7 +36,7 @@ const AccountInfo: NextPage = ({ data }: any) => {
             phoneNumber: data.phoneNumber,
             address: data.address
         }
-        await api.put(`/auth/updateUser/${_id}`, changeUser)
+        await api.put(`/auth/updateUser/${_id}`, changeUser) // Post to API to change the user info
             .then(res => {
                 toast({
                     position: 'top-start',
@@ -140,6 +140,7 @@ const AccountInfo: NextPage = ({ data }: any) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
+    // Fetch with SSR to get the info of the user
     const { id }: any = params
     const res = await fetch(`http://localhost:3333/auth/user/${id}`)
     const data = await res.json()

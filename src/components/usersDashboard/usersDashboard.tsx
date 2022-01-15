@@ -7,8 +7,6 @@ import {
     Text,
     VStack
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import { api } from "../../services/api";
@@ -20,7 +18,7 @@ export function UsersDashboard() {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
-        api.get("/auth/allUsers")
+        api.get("/auth/allUsers") // Get all the users from API
             .then((res) =>
                 setUsers(res.data)
             )
@@ -67,7 +65,7 @@ export function UsersDashboard() {
                                                 aria-label='Delete User'
                                                 icon={<RiDeleteBin5Line />}
                                                 onClick={async () => {
-                                                    await api.delete(`/auth/user/${user._id}`)
+                                                    await api.delete(`/auth/user/${user._id}`) // Delete one user
                                                         .then(res => {
                                                             const find = users.findIndex((us: any) => us._id = user._id)
                                                             users.splice(find, 1)

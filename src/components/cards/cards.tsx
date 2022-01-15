@@ -30,13 +30,13 @@ type Bedroom = {
 export function Cards({ filter }: any) {
 
     const [bedrooms, setBedrooms] = useState([])
-    const { 'hotel.token': token }: any = parseCookies()
+    const { 'hotel.token': token }: any = parseCookies() // With this we can get the token from the user who it's logged in
     const [tokens, setTokens] = useState('')
     const { isAuthnticated } = useContext(AuthContext)
 
 
     useEffect(() => {
-        if (isAuthnticated) {
+        if (token) { // If it's authenticated we get the token from /me to get the id of the user
             api.get('/auth/me', {
                 headers: {
                     'authorization': token
@@ -47,7 +47,7 @@ export function Cards({ filter }: any) {
                 })
         }
 
-        api.get("/bedrooms/bedroom", {
+        api.get("/bedrooms/bedroom", { // Get from API to get all the bedrooms and passing filter on dependency array so we can choose the filters
             params: filter
         })
             .then((response) => setBedrooms(response.data))
@@ -135,7 +135,7 @@ export function Cards({ filter }: any) {
                                                     alignItems={'center'}
                                                 >
                                                     {
-                                                        isAuthnticated ? (
+                                                        isAuthnticated ? ( // Favorite button that only shows if autenticated
                                                             <FavoriteButton bedroomId={bedroom._id} tokens={tokens} />
                                                         ) : (
                                                             <>

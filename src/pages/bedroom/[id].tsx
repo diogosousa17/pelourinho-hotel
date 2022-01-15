@@ -43,7 +43,7 @@ const Bedroom: NextPage = ({ data }: any) => {
 
     const toast = useToast()
     const router = useRouter()
-    const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType, imageURL } = data
+    const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType, imageURL } = data // Info of the bedroom from props
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { user, isAuthnticated } = useContext(AuthContext)
@@ -56,11 +56,11 @@ const Bedroom: NextPage = ({ data }: any) => {
     const difference = (differenceInDays(dateToTest, dateFromTest))
     const priceFinal = price * difference
 
-    const disablePastDate = () => {
+    const disablePastDate = () => { // Disable the dates that already been passed
         const today = new Date();
-        const dd = String(today.getDate()).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-        const yyyy = today.getFullYear();
+        const dd = String(today.getDate()).padStart(2, "0")
+        const mm = String(today.getMonth() + 1).padStart(2, "0")
+        const yyyy = today.getFullYear()
         return yyyy + "-" + mm + "-" + dd;
     };
 
@@ -74,7 +74,7 @@ const Bedroom: NextPage = ({ data }: any) => {
             guestsNumber: data.guestsNumber,
             finalPrice: priceFinal
         }
-        if (priceFinal <= 0) {
+        if (priceFinal <= 0) { // If the price is 0 or below 0 we give a warning
             toast({
                 position: 'top-start',
                 isClosable: true,
@@ -83,7 +83,7 @@ const Bedroom: NextPage = ({ data }: any) => {
                 description: 'Pelase choose another date.'
             })
         } else {
-            await api.put(`/auth/user/${user.id}`, createReserve)
+            await api.put(`/auth/user/${user.id}`, createReserve) // Put to the user schema to add a new reservation
                 .then(res => {
                     console.log(res)
                     toast({
@@ -357,6 +357,7 @@ const Bedroom: NextPage = ({ data }: any) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
+    // Fetch the info of one bedroom
     const { id }: any = params
     const res = await fetch(`http://localhost:3333/bedrooms/bedroom/${id}`)
     const data = await res.json()

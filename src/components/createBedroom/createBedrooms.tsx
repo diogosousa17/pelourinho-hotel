@@ -23,14 +23,14 @@ import { ref, storage, uploadBytesResumable, getDownloadURL } from "../../servic
 
 export function CreateBedrooms() {
 
-    const toast = useToast()
-    const [characteristics, setcharacteristics] = useState([]);
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
+    const toast = useToast() // Toast from Chakra
+    const [characteristics, setcharacteristics] = useState([]) // State to keep the characteristics from the bedroom
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm() // React hook forms
 
-    const onSubmit = async (data: any) => {
-        const storageRef = ref(storage, "images/" + data.images[0].name);
-        await uploadBytesResumable(storageRef, data.images[0]);
-        await getDownloadURL(storageRef).then(async (res) => {
+    const onSubmit = async (data: any) => { // Upload the image to FireBase
+        const storageRef = ref(storage, "images/" + data.images[0].name)
+        await uploadBytesResumable(storageRef, data.images[0]) // We upload the image to firebase,
+        await getDownloadURL(storageRef).then(async (res) => { // Then get the image link
             const newBedroom = {
                 bedroomNumber: data.bedroomNumber,
                 bedroomName: data.bedroomName,
@@ -40,18 +40,19 @@ export function CreateBedrooms() {
                 bedsNumber: data.bedsNumber,
                 capacity: data.capacity,
                 price: data.price,
-                imageURL: res
+                imageURL: res // After we get the link we send it to database
             }
-            await api.post('/bedrooms/add', newBedroom)
+            await api.post('/bedrooms/add', newBedroom) // Create new bedroom
                 .then(res => {
-                    toast({
+                    toast({ // Success toast to inform the user success
                         position: 'top-start',
                         isClosable: true,
                         title: 'Bedroom created!',
                         status: 'success',
                     })
+                    console.log(res)
                 }).catch(err => {
-                    toast({
+                    toast({ // Error toast to inform the user error
                         position: 'top-start',
                         isClosable: true,
                         title: 'Error creating bedroom. Try again later.',

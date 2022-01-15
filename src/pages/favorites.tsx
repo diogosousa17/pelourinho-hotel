@@ -30,7 +30,7 @@ const Favorites: NextPage = () => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        api.get('/auth/favorites', {
+        api.get('/auth/favorites', { // Get the favorites from the user
             headers: {
                 'authorization': token
             }
@@ -43,7 +43,7 @@ const Favorites: NextPage = () => {
     }, [favorites])
 
     useEffect(() => {
-        if (token) {
+        if (token) { // If authenticated we fetch the token from user
             api.get('/auth/me', {
                 headers: {
                     'authorization': token
@@ -60,7 +60,7 @@ const Favorites: NextPage = () => {
 
     return (
         <>
-            {
+            { // If the user has no favorites we show a message "No Favorites" else we show the favorites bedrooms
                 favorites.length == 0 ? (
                     <Center h="calc(100vh - 124px)">
                         <VStack>

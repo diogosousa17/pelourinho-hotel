@@ -23,15 +23,15 @@ import { AuthContext } from '../../contexts/AuthContext'
 export function LoginButton() {
 
     const router = useRouter()
-    const { signIn } = useContext(AuthContext)
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
+    const { signIn } = useContext(AuthContext) // We get this from the context hook to make the login
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm() // React hook forms
 
     async function handleSignIn(data: any) {
         await signIn(data)
         router.push('/')
     }
 
-    const [size, setSize] = React.useState('full')
+    const [size, setSize] = React.useState('full') // Drawer full size from Chakra
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleClick = (newSize: any) => {

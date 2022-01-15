@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
+// Connection to FireBase
 const firebaseConfig = {
     apiKey: "AIzaSyDG-VSmxn09UDO6OXu5iXK6NQXgY20ifGg",
   authDomain: "pelourinho-hotel-spa.firebaseapp.com",

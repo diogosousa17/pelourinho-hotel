@@ -33,15 +33,15 @@ export const AuthContext = createContext({} as AuthContextType)
 
 export function AuthProvider({ children }: any) {
 
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<User | null>(null) // Here we keep all the info from the user
     const router = useRouter()
 
-    const isAuthnticated = !!user
+    const isAuthnticated = !!user // Boolean to know if the user is autenticated
 
     useEffect(() => {
-        const { 'hotel.token': token } = parseCookies()
+        const { 'hotel.token': token } = parseCookies() // Get the token from the user that is authenticated
 
-        if (token) {
+        if (token) { // If the user is authenticated we get the info on token to show on ohter components
             api.get('/auth/me', {
                 headers: {
                     'authorization': token
@@ -54,14 +54,14 @@ export function AuthProvider({ children }: any) {
 
     }, [])
 
-    async function signIn({ username, password }: SignInData) {
+    async function signIn({ username, password }: SignInData) { // Login a user that exists on database
         try {
             const response = await api.post('/auth/login', {
                 username: username,
                 password: password
             })
 
-            setCookie(undefined, 'hotel.token', response.data.token, {
+            setCookie(undefined, 'hotel.token', response.data.token, { // After the user login we save the token on cookies
                 maxAge: 60 * 60 * 1, // 1h
             })
 
@@ -78,13 +78,13 @@ export function AuthProvider({ children }: any) {
         }
     }
 
-    function signOut() {
+    function signOut() { // Log out function we destroy the cookie
         destroyCookie(undefined, 'hotel.token')
         router.reload()
         router.push('/')
     }
 
-    return (
+    return (// Here we return the functions to access on other components
         <AuthContext.Provider value={{ user, isAuthnticated, signIn, signOut }}>
             {children}
         </AuthContext.Provider>

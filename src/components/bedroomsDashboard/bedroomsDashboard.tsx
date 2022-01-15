@@ -1,18 +1,23 @@
-import { Box, Button, Divider, Flex, FormControl, FormLabel, HStack, IconButton, Image, Input, Menu, MenuButton, MenuDivider, MenuItemOption, MenuList, MenuOptionGroup, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Text, Textarea, useDisclosure, VStack } from "@chakra-ui/react"
+import {
+    Box,
+    Divider,
+    Flex,
+    HStack,
+    IconButton,
+    Image,
+    Text,
+    VStack
+} from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { RiDeleteBin5Line, RiDeleteBack2Fill } from "react-icons/ri"
-import { MdDriveFileRenameOutline } from "react-icons/md"
+import { RiDeleteBin5Line } from "react-icons/ri"
 import { api } from "../../services/api"
-import { useForm } from "react-hook-form"
 import { Sidebar } from "../sidebar/sidebar"
-import { useRouter } from "next/router"
-
 
 export function BedroomsDashboard() {
 
     const [bedrooms, setBedrooms] = useState<any>([])
 
-    useEffect(() => {
+    useEffect(() => { // Get from API all the bedrooms then saving it on a state
         api.get("/bedrooms/bedroom", {
         })
             .then((response) =>
@@ -29,7 +34,7 @@ export function BedroomsDashboard() {
                 <Sidebar />
                 <Box overflowY="scroll" h="calc(100vh - 124px)" w="1648px">
                     {
-                        bedrooms.map((bedroom: any) => {
+                        bedrooms.map((bedroom: any) => { // map from the state to print all the bedrooms separately
                             return (
                                 <>
                                     <HStack spacing={10} mt="10px">
@@ -66,7 +71,7 @@ export function BedroomsDashboard() {
                                                 aria-label='Delete Bedroom'
                                                 icon={<RiDeleteBin5Line />}
                                                 onClick={async () => {
-                                                    await api.delete(`/bedrooms/bedroom/${bedroom._id}`)
+                                                    await api.delete(`/bedrooms/bedroom/${bedroom._id}`) // Delete the bedroom we want
                                                         .then(res => {
                                                             const find = bedrooms.findIndex((bed: any) => bed._id = bedroom._id)
                                                             bedrooms.splice(find, 1)

@@ -12,8 +12,7 @@ export function FavoriteButton({ bedroomId, tokens }: any) {
     const [user, setUser] = useState<any>([])
 
     useEffect(() => {
-
-        const { 'hotel.token': token }: any = parseCookies()
+        const { 'hotel.token': token }: any = parseCookies() // With this we can get the token from the user who it's logged in
         api.get('/auth/me', {
             headers: {
                 'authorization': token
@@ -28,14 +27,14 @@ export function FavoriteButton({ bedroomId, tokens }: any) {
     }, [isFavorite])
 
     const handleSetFavorites = (bedroomId: any, tokens: any) => {
-        if (token && !isFavorite) {
+        if (token && !isFavorite) { // If it's not liked we make a post to add a new favorite
             api.post('/auth/favorites', { data: bedroomId, tokens })
                 .then(res => {
                     setisFavorite(true)
                 }).catch(err => {
                     console.log(err)
                 })
-        } else {
+        } else { // If it's already on favorites we delete from the favorites
             api.delete('/auth/favorites', { headers: { "bedroomId": bedroomId, "userId": tokens } })
                 .then(res => {
                     setisFavorite(false)

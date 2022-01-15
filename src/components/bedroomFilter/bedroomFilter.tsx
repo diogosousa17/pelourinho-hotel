@@ -1,7 +1,25 @@
-import { Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, Text, useBreakpointValue, useDisclosure, VStack } from '@chakra-ui/react'
+import {
+    Button,
+    Center,
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
+    HStack,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Text,
+    useBreakpointValue,
+    useDisclosure,
+    VStack
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { FiChevronDown } from 'react-icons/fi'
-import { BiSort } from 'react-icons/bi'
 import { RiFilterFill, RiFilterOffFill } from 'react-icons/ri'
 
 export function BedroomFilter({ filter }: any) {
@@ -9,10 +27,12 @@ export function BedroomFilter({ filter }: any) {
     const router = useRouter()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
+    // Delete the sort filter with a router push
     function deleteFilters() {
         router.push('/bedrooms')
     }
 
+    // Sort by price with a click event
     function orderByPrice(e: any) {
 
         let queryValue
@@ -28,6 +48,7 @@ export function BedroomFilter({ filter }: any) {
         })
     }
 
+    // Sort by name with a click event
     function orderByName(e: any) {
         let queryValue
 
@@ -42,6 +63,7 @@ export function BedroomFilter({ filter }: any) {
         })
     }
 
+    // Sort by number of beds with a click event
     function orderByBeds(e: any) {
         let queryValue
 
@@ -56,6 +78,7 @@ export function BedroomFilter({ filter }: any) {
         })
     }
 
+    // Sort by number of people with a click event
     function orderByPeople(e: any) {
         let queryValue
 
@@ -138,45 +161,45 @@ export function BedroomFilter({ filter }: any) {
                         <Drawer placement={'left'} onClose={onClose} isOpen={isOpen}>
                             <DrawerOverlay />
                             <DrawerContent>
-                                <DrawerHeader borderBottomWidth='1px'>Ordernar por:</DrawerHeader>
+                                <DrawerHeader borderBottomWidth='1px'>Order by:</DrawerHeader>
                                 <DrawerCloseButton />
                                 <DrawerBody>
                                     <Center>
                                         <VStack w="100%">
                                             <Menu>
                                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light" w="100%" maxW="150px">
-                                                    Preço
+                                                    Price
                                                 </MenuButton>
                                                 <MenuList>
-                                                    <MenuItem onClick={orderByPrice} value="asc">Ascendente</MenuItem>
-                                                    <MenuItem onClick={orderByPrice} value="desc">Descendente</MenuItem>
+                                                    <MenuItem onClick={orderByPrice} value="asc">Ascending</MenuItem>
+                                                    <MenuItem onClick={orderByPrice} value="desc">Descending</MenuItem>
                                                 </MenuList>
                                             </Menu>
                                             <Menu>
                                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light" w="100%" maxW="150px">
-                                                    Nome
+                                                    Name
                                                 </MenuButton>
                                                 <MenuList>
-                                                    <MenuItem onClick={orderByName} value="asc">Ascendente</MenuItem>
-                                                    <MenuItem onClick={orderByName} value="desc">Descendente</MenuItem>
+                                                    <MenuItem onClick={orderByName} value="asc">Ascending</MenuItem>
+                                                    <MenuItem onClick={orderByName} value="desc">Descending</MenuItem>
                                                 </MenuList>
                                             </Menu>
                                             <Menu>
                                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light" w="100%" maxW="150px">
-                                                    Nrº Camas
+                                                    Beds Number
                                                 </MenuButton>
                                                 <MenuList>
-                                                    <MenuItem onClick={orderByBeds} value="asc">Ascendente</MenuItem>
-                                                    <MenuItem onClick={orderByBeds} value="desc">Descendente</MenuItem>
+                                                    <MenuItem onClick={orderByBeds} value="asc">Ascending</MenuItem>
+                                                    <MenuItem onClick={orderByBeds} value="desc">Descending</MenuItem>
                                                 </MenuList>
                                             </Menu>
                                             <Menu>
                                                 <MenuButton as={Button} rightIcon={<FiChevronDown />} borderRadius="0" border="1px" bgColor="#FFF" fontWeight="light" w="100%" maxW="150px">
-                                                    Nrº Pessoas
+                                                    Capacity
                                                 </MenuButton>
                                                 <MenuList>
-                                                    <MenuItem onClick={orderByPeople} value="asc">Ascendente</MenuItem>
-                                                    <MenuItem onClick={orderByPeople} value="desc">Descendente</MenuItem>
+                                                    <MenuItem onClick={orderByPeople} value="asc">Ascending</MenuItem>
+                                                    <MenuItem onClick={orderByPeople} value="desc">Descending</MenuItem>
                                                 </MenuList>
                                             </Menu>
                                             <Button onClick={deleteFilters} w="100%" maxW="150px" borderRadius={"0"} bg="#C29A76" colorScheme={"#C29A76"}><RiFilterOffFill /></Button>

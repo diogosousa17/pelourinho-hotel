@@ -16,7 +16,7 @@ const Dashboard: NextPage = () => {
     useEffect(() => {
         const { 'hotel.token': token } = parseCookies()
 
-        if (!token) {
+        if (!token) { // If it's logged we fetch the token else it redirects to homepage
             router.push('/')
         } else {
             api.get('/auth/me', {
@@ -38,7 +38,7 @@ const Dashboard: NextPage = () => {
 
     return (
         <>
-            {
+            { // If the user is admin it shows the dashboard, else shows forbidden
                 user[0] == "admin" ? (
                     <Sidebar />
                 ) : (
