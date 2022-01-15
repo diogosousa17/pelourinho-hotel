@@ -17,20 +17,17 @@ import { Sidebar } from "../sidebar/sidebar";
 
 export function UsersDashboard() {
 
-    const router = useRouter()
     const [users, setUsers] = useState([])
-    const secretKey = "superscret"
 
     useEffect(() => {
-        const { 'hotel.token': token } = parseCookies()
-        api.get("/auth/allUsers", { headers: { 'authorization': token, 'secret': secretKey } })
+        api.get("/auth/allUsers")
             .then((res) =>
                 setUsers(res.data)
             )
             .catch((err) => {
                 console.error("Erro: " + err)
             })
-    }, [])
+    }, [users])
 
     return (
         <>
@@ -61,15 +58,22 @@ export function UsersDashboard() {
                                             <Text fontWeight="medium">PHONE NUMBER</Text>
                                             <Text>{user.phoneNumber}</Text>
                                         </VStack>
-                                        {/* <VStack align="flex-start">
-                                    <Text fontWeight="medium">NIF</Text>
-                                    <Text>123456789</Text>
-                                </VStack> */}
+                                        <VStack align="flex-start">
+                                            <Text fontWeight="medium">NIF</Text>
+                                            <Text>123456789</Text>
+                                        </VStack>
                                         <VStack>
                                             <IconButton
                                                 aria-label='Delete User'
                                                 icon={<RiDeleteBin5Line />}
-                                                onClick={() => { api.delete(`/auth/user/${user._id}`).then(res => { router.reload() }) }}
+                                                onClick={async () => {
+                                                    await api.delete(`/auth/user/${user._id}`)
+                                                        .then(res => {
+                                                            const find = users.findIndex((us: any) => us._id = user._id)
+                                                            users.splice(find, 1)
+                                                            setUsers(users)
+                                                        })
+                                                }}
                                             />
                                         </VStack>
                                     </HStack>

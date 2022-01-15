@@ -16,7 +16,7 @@ const Dashboard: NextPage = () => {
     useEffect(() => {
         const { 'hotel.token': token } = parseCookies()
 
-        if (!isAuthnticated) {
+        if (!token) {
             router.push('/')
         } else {
             api.get('/auth/me', {
@@ -29,6 +29,12 @@ const Dashboard: NextPage = () => {
         }
 
     }, [])
+
+    useEffect(() => {
+        if (user[0] == "publico") {
+            router.push("/")
+        }
+    })
 
     return (
         <>

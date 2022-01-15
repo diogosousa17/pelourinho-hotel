@@ -10,23 +10,18 @@ import { useRouter } from "next/router"
 
 export function BedroomsDashboard() {
 
-    const router = useRouter()
     const [bedrooms, setBedrooms] = useState<any>([])
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
 
     useEffect(() => {
         api.get("/bedrooms/bedroom", {
         })
-            .then((response) => setBedrooms(response.data))
+            .then((response) =>
+                setBedrooms(response.data)
+            )
             .catch((err) => {
                 console.error("Erro: " + err)
             })
-    }, [])
-
-    const onSubmit = () => {
-
-    }
+    }, [bedrooms])
 
     return (
         <>
@@ -68,14 +63,16 @@ export function BedroomsDashboard() {
                                         </VStack>
                                         <HStack>
                                             <IconButton
-                                                aria-label='Edit Bedroom'
-                                                icon={<MdDriveFileRenameOutline />}
-                                                onClick={onOpen}
-                                            />
-                                            <IconButton
                                                 aria-label='Delete Bedroom'
                                                 icon={<RiDeleteBin5Line />}
-                                                onClick={() => { api.delete(`/bedrooms/bedroom/${bedroom._id}`).then(res => { router.reload() }) }}
+                                                onClick={async () => {
+                                                    await api.delete(`/bedrooms/bedroom/${bedroom._id}`)
+                                                        .then(res => {
+                                                            const find = bedrooms.findIndex((bed: any) => bed._id = bedroom._id)
+                                                            bedrooms.splice(find, 1)
+                                                            setBedrooms(bedrooms)
+                                                        })
+                                                }}
                                             />
                                         </HStack>
                                     </HStack>
@@ -85,83 +82,6 @@ export function BedroomsDashboard() {
                         })
                     }
                 </Box>
-                {/* <Modal
-                    isOpen={isOpen}
-                    onClose={onClose}
-                >
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>Reservar Quarto</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody pb={6}>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <FormControl>
-                                    <FormLabel>Nome do Quarto</FormLabel>
-                                    <Input
-                                        defaultValue={bedrooms.bedroomName}
-                                        {...register("bedroomName")}
-                                    />
-                                </FormControl>
-                                <FormControl mt={4}>
-                                    <FormLabel>Descrição</FormLabel>
-                                    <Textarea
-                                        {...register("description")}
-                                    />
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Tipo de Quarto</FormLabel>
-                                    <Select {...register("bedroomType")}>
-                                        <option value="Single">Single</option>
-                                        <option value="Duo">Duo</option>
-                                        <option value="Suíte">Suíte</option>
-                                    </Select>
-                                </FormControl>
-                                <Menu closeOnSelect={false}>
-                                    <MenuButton as={Button}>
-                                        Características
-                                    </MenuButton>
-                                    <MenuList minWidth='240px'>
-                                        <MenuDivider />
-                                        <MenuOptionGroup title='Características' type='checkbox'>
-                                            <MenuItemOption value='Wi-Fi'>Wi-Fi</MenuItemOption>
-                                            <MenuItemOption value='Varanda'>Varanda</MenuItemOption>
-                                            <MenuItemOption value='Ar Condicionado'>Ar Condicionado</MenuItemOption>
-                                            <MenuItemOption value='Sala de Estar'>Sala de Estar</MenuItemOption>
-                                            <MenuItemOption value='TV'>TV</MenuItemOption>
-                                            <MenuItemOption value='Rádio'>Rádio</MenuItemOption>
-                                            <MenuItemOption value='Casa de Banho com Chuveiro'>Casa de banho com Chuveiro</MenuItemOption>
-                                            <MenuItemOption value='Aquecimento Central'>Aquecimento Central</MenuItemOption>
-                                        </MenuOptionGroup>
-                                    </MenuList>
-                                </Menu>
-                                <FormControl>
-                                    <FormLabel>Número de Camas</FormLabel>
-                                    <Input
-                                        {...register("bedsNumber")}
-                                    />
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Capacidade</FormLabel>
-                                    <Input
-                                        {...register("capacity")}
-                                    />
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>Preço</FormLabel>
-                                    <Input
-                                        {...register("price")}
-                                    />
-                                </FormControl>
-                                <Button colorScheme='blue' mr={3} type="submit" isLoading={isSubmitting}>
-                                    Reservar Quarto
-                                </Button>
-                            </form>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button onClick={onClose}>Cancelar</Button>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal> */}
             </Flex>
         </>
     )

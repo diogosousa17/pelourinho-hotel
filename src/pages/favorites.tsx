@@ -65,7 +65,7 @@ const Favorites: NextPage = () => {
                     <Center h="calc(100vh - 124px)">
                         <VStack>
                             <Text fontSize={"46"}>No Favorites</Text>
-                            <Text fontSize={"20"} cursor="pointer" as="a" onClick={() => router.push('/bedrooms')} color="#C29A76" textDecoration={"underline"}>Add Some Favorite Bedroom!</Text>
+                            <Text fontSize={"20"} cursor="pointer" as="a" onClick={() => router.push('/bedrooms')} color="#C29A76" textDecoration={"underline"}>Add Bedrooms to your Favorites!</Text>
                         </VStack>
                     </Center>
                 ) : (

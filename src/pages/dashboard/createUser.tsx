@@ -17,7 +17,7 @@ const CreateUser: NextPage = () => {
     useEffect(() => {
         const { 'hotel.token': token } = parseCookies()
 
-        if (!isAuthnticated) {
+        if (!token) {
             router.push('/')
         } else {
             api.get('/auth/me', {
@@ -29,6 +29,12 @@ const CreateUser: NextPage = () => {
             })
         }
     }, [])
+
+    useEffect(() => {
+        if (user[0] == "publico") {
+            router.push("/")
+        }
+    })
 
     return (
         <>
