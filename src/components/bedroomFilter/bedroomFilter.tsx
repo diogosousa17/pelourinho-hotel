@@ -46,6 +46,7 @@ export function BedroomFilter({ filter }: any) {
             pathname: '/bedrooms',
             query: queryValue
         })
+        onClose()
     }
 
     // Sort by name with a click event
@@ -61,6 +62,7 @@ export function BedroomFilter({ filter }: any) {
             pathname: '/bedrooms',
             query: queryValue
         })
+        onClose()
     }
 
     // Sort by number of beds with a click event
@@ -76,6 +78,7 @@ export function BedroomFilter({ filter }: any) {
             pathname: '/bedrooms',
             query: queryValue
         })
+        onClose()
     }
 
     // Sort by number of people with a click event
@@ -92,6 +95,7 @@ export function BedroomFilter({ filter }: any) {
             pathname: '/bedrooms',
             query: queryValue
         })
+        onClose()
     }
 
     const wide = useBreakpointValue({

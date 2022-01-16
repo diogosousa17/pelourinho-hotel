@@ -44,17 +44,17 @@ const Bedroom: NextPage = ({ data }: any) => {
     const toast = useToast()
     const router = useRouter()
     const { bedroomName, price, capacity, bedsNumber, characteristics, description, bedroomNumber, bedroomType, imageURL } = data // Info of the bedroom from props
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm()
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm() // React Hook Forms
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { user, isAuthnticated } = useContext(AuthContext)
-    const [dateFrom, setDateFrom] = useState<any>(new Date())
-    const [dateTo, setDateTo] = useState<any>(new Date())
+    const [dateFrom, setDateFrom] = useState<any>(new Date()) // Here we keep the dateFrom on state
+    const [dateTo, setDateTo] = useState<any>(new Date()) // Here we keep the dateTo on state
 
     const dateFromTest = new Date(dateFrom)
     const dateToTest = new Date(dateTo)
 
-    const difference = (differenceInDays(dateToTest, dateFromTest))
-    const priceFinal = price * difference
+    const difference = (differenceInDays(dateToTest, dateFromTest)) // This is to know how many days the user is booking
+    const priceFinal = price * difference // Math to calculate the final price
 
     const disablePastDate = () => { // Disable the dates that already been passed
         const today = new Date();
@@ -64,7 +64,7 @@ const Bedroom: NextPage = ({ data }: any) => {
         return yyyy + "-" + mm + "-" + dd;
     };
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: any) => { // Post to API to make a new reservation
         const createReserve = {
             bedroomNumber: data.bedroomNumber,
             bedroomType: data.bedroomType,

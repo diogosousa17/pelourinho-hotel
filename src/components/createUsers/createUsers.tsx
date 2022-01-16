@@ -15,6 +15,8 @@ export function CreateUsers() {
             name: data.name,
             email: data.email,
             password: data.password,
+            dateBirthday: data.dateBirthday,
+            nif: data.nif,
             userType: data.userType
         }
         await api.post('/auth/register', newUser) // Register new user
@@ -65,6 +67,20 @@ export function CreateUsers() {
                                     placeholder='Email'
                                     borderRadius="0"
                                     {...register("email")}
+                                />
+                                <Input
+                                    w="100%"
+                                    maxW="300px"
+                                    borderRadius="0"
+                                    type="date"
+                                    {...register("dateBirthday")}
+                                />
+                                <Input
+                                    w="100%"
+                                    maxW="300px"
+                                    placeholder='NIF'
+                                    borderRadius="0"
+                                    {...register("nif")}
                                 />
                                 <Input
                                     w="100%"
